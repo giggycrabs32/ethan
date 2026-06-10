@@ -1,741 +1,958 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Paradise Lawn Co. | Professional Lawn Care in Paradise</title>
-  <meta name="description" content="Professional lawn care services in Paradise by Beckham & Mason. Get a free quote today. Call or text 709-770-4579." />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          fontFamily: {
-            heading: ['Poppins', 'sans-serif'],
-            body: ['Open Sans', 'sans-serif'],
-          },
-          colors: {
-            green: {
-              50:  '#f0fdf4',
-              100: '#dcfce7',
-              200: '#bbf7d0',
-              300: '#86efac',
-              400: '#4ade80',
-              500: '#22c55e',
-              600: '#16a34a',
-              700: '#15803d',
-              800: '#166534',
-              900: '#14532d',
-              950: '#052e16',
-            },
-          },
-        },
-      },
-    }
-  </script>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>B&M Lawn Care — Paradise, NL</title>
+  <meta name="description" content="Premium lawn care by Beckham & Mason in Paradise, NL. Free quotes. Call or text today."/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
   <style>
-    @media (prefers-reduced-motion: reduce) {
-      *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration:.01ms!important; transition-duration:.01ms!important; } }
+
+    :root {
+      --green: #22c55e;
+      --green-light: #4ade80;
+      --green-dark: #052e16;
+      --black: #060a06;
+      --card-bg: rgba(255,255,255,0.04);
+      --card-border: rgba(255,255,255,0.08);
     }
+
     html { scroll-behavior: smooth; }
-    body { font-family: 'Open Sans', sans-serif; }
-    h1, h2, h3, h4 { font-family: 'Poppins', sans-serif; }
 
-    .hero-bg {
-      background: linear-gradient(135deg, #052e16 0%, #14532d 40%, #166534 70%, #15803d 100%);
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: var(--black);
+      color: #fff;
+      overflow-x: hidden;
     }
-    .star-half {
-      background: linear-gradient(to right, #fbbf24 50%, #d1d5db 50%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
+
+    /* ── Scrollbar ── */
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: #0a0f0a; }
+    ::-webkit-scrollbar-thumb { background: var(--green); border-radius: 2px; }
+
+    /* ── Navbar ── */
+    #nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      padding: 20px 40px;
+      display: flex; align-items: center; justify-content: space-between;
+      transition: background .3s, backdrop-filter .3s, padding .3s;
     }
-    .card-hover {
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    #nav.solid {
+      background: rgba(6,10,6,.92);
+      backdrop-filter: blur(20px);
+      padding: 14px 40px;
+      border-bottom: 1px solid rgba(34,197,94,.15);
     }
-    .card-hover:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+    .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+    .logo-mark {
+      width: 38px; height: 38px; background: var(--green); border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 0 20px rgba(34,197,94,.4);
     }
+    .logo-mark svg { width: 20px; height: 20px; }
+    .logo-text { line-height: 1; }
+    .logo-text strong { display: block; font-size: 17px; font-weight: 800; color: #fff; letter-spacing: -0.3px; }
+    .logo-text span { font-size: 10px; font-weight: 600; color: var(--green); letter-spacing: 2px; text-transform: uppercase; }
+    .nav-links { display: flex; align-items: center; gap: 36px; }
+    .nav-links a { color: rgba(255,255,255,.6); text-decoration: none; font-size: 13px; font-weight: 500; transition: color .2s; }
+    .nav-links a:hover { color: #fff; }
+    .nav-cta {
+      background: var(--green); color: #fff !important; padding: 10px 22px;
+      border-radius: 10px; font-weight: 600 !important; font-size: 13px !important;
+      box-shadow: 0 0 20px rgba(34,197,94,.35);
+      transition: background .2s, box-shadow .2s, transform .15s !important;
+    }
+    .nav-cta:hover { background: var(--green-light) !important; box-shadow: 0 0 35px rgba(34,197,94,.6) !important; transform: translateY(-1px); }
+    .hamburger { display: none; background: none; border: none; cursor: pointer; padding: 6px; }
+    .hamburger span { display: block; width: 22px; height: 2px; background: #fff; margin: 5px 0; border-radius: 2px; transition: .3s; }
+    #mobile-menu {
+      display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; z-index: 99;
+      background: rgba(6,10,6,.97); flex-direction: column; align-items: center; justify-content: center; gap: 28px;
+    }
+    #mobile-menu.open { display: flex; }
+    #mobile-menu a { color: #fff; text-decoration: none; font-size: 24px; font-weight: 700; }
+    #mobile-menu .close-btn { position: absolute; top: 24px; right: 32px; background: none; border: none; color: #fff; font-size: 32px; cursor: pointer; }
+
+    /* ── Hero ── */
+    #hero {
+      position: relative; height: 100vh; min-height: 640px;
+      display: flex; align-items: center; overflow: hidden;
+    }
+    #hero-canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+    .hero-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(105deg, rgba(6,10,6,.88) 0%, rgba(6,10,6,.65) 55%, rgba(6,10,6,.2) 100%);
+    }
+    /* Grain */
+    .hero-overlay::after {
+      content: ''; position: absolute; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
+      opacity: .035; pointer-events: none;
+    }
+    .hero-content { position: relative; z-index: 10; max-width: 1200px; margin: 0 auto; padding: 0 40px; width: 100%; padding-top: 80px; }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      border: 1px solid rgba(34,197,94,.3); background: rgba(34,197,94,.08);
+      border-radius: 100px; padding: 6px 16px; margin-bottom: 28px;
+    }
+    .badge-dot { width: 7px; height: 7px; background: var(--green); border-radius: 50%; animation: pulse 2s infinite; }
+    @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.5;transform:scale(1.3)} }
+    .badge-text { font-size: 12px; font-weight: 500; color: var(--green-light); letter-spacing: .5px; }
+    .hero-title { line-height: .88; margin-bottom: 20px; }
+    .hero-t1 {
+      display: block; font-size: clamp(86px, 14vw, 160px); font-weight: 900;
+      color: transparent; -webkit-text-stroke: 2.5px var(--green);
+      letter-spacing: -4px;
+      animation: fadeUp .8s ease forwards;
+    }
+    .hero-t2 {
+      display: block; font-size: clamp(38px, 6.5vw, 72px); font-weight: 900;
+      background: linear-gradient(135deg, #22c55e 0%, #86efac 60%, #fff 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+      letter-spacing: -1px;
+      animation: fadeUp .8s .15s ease both;
+    }
+    @keyframes fadeUp { from{opacity:0;transform:translateY(30px)} to{opacity:1;transform:translateY(0)} }
+    .hero-sub {
+      font-size: 16px; color: rgba(255,255,255,.6); max-width: 480px; line-height: 1.7;
+      margin-bottom: 36px; animation: fadeUp .8s .3s ease both;
+    }
+    .hero-btns { display: flex; flex-wrap: wrap; gap: 14px; margin-bottom: 56px; animation: fadeUp .8s .45s ease both; }
     .btn-primary {
-      transition: background-color 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease;
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--green); color: #fff; text-decoration: none;
+      padding: 15px 30px; border-radius: 12px; font-weight: 700; font-size: 14px;
+      box-shadow: 0 0 30px rgba(34,197,94,.45);
+      transition: background .2s, box-shadow .2s, transform .15s;
     }
-    .btn-primary:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 8px 20px rgba(21, 128, 61, 0.4);
+    .btn-primary:hover { background: var(--green-light); box-shadow: 0 0 50px rgba(34,197,94,.7); transform: translateY(-2px); }
+    .btn-outline {
+      display: inline-flex; align-items: center; gap: 8px;
+      border: 1px solid rgba(255,255,255,.2); background: rgba(255,255,255,.06);
+      color: #fff; text-decoration: none; padding: 15px 30px; border-radius: 12px;
+      font-weight: 600; font-size: 14px; backdrop-filter: blur(8px);
+      transition: background .2s, border-color .2s;
     }
-    .btn-primary:active { transform: translateY(0); }
+    .btn-outline:hover { background: rgba(255,255,255,.12); border-color: rgba(255,255,255,.35); }
+    .hero-stats { display: flex; gap: 40px; animation: fadeUp .8s .6s ease both; }
+    .stat-item { border-left: 2px solid rgba(34,197,94,.35); padding-left: 16px; }
+    .stat-num { font-size: 28px; font-weight: 800; color: #fff; letter-spacing: -1px; }
+    .stat-label { font-size: 11px; color: rgba(255,255,255,.4); font-weight: 500; text-transform: uppercase; letter-spacing: .5px; }
 
-    /* Scroll reveal */
-    .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.5s ease, transform 0.5s ease; }
-    .reveal.visible { opacity: 1; transform: translateY(0); }
+    /* ── Marquee ── */
+    .marquee-wrap {
+      background: var(--green); padding: 14px 0; overflow: hidden;
+      border-top: 1px solid rgba(255,255,255,.1); border-bottom: 1px solid rgba(255,255,255,.1);
+    }
+    .marquee-track { display: flex; width: max-content; animation: marquee 18s linear infinite; }
+    .marquee-track:hover { animation-play-state: paused; }
+    .marquee-item {
+      white-space: nowrap; padding: 0 32px; font-size: 13px; font-weight: 700;
+      color: #052e16; letter-spacing: 2px; text-transform: uppercase;
+      display: flex; align-items: center; gap: 16px;
+    }
+    .marquee-dot { width: 5px; height: 5px; background: rgba(5,46,22,.4); border-radius: 50%; }
+    @keyframes marquee { from{transform:translateX(0)} to{transform:translateX(-50%)} }
 
-    /* Navbar scroll */
-    #navbar { transition: background 0.3s ease, box-shadow 0.3s ease; }
-    #navbar.scrolled { background: rgba(5, 46, 22, 0.97) !important; box-shadow: 0 2px 20px rgba(0,0,0,0.3); }
+    /* ── Sections ── */
+    section { padding: 100px 40px; max-width: 1200px; margin: 0 auto; }
+    .section-label { font-size: 11px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--green); margin-bottom: 14px; }
+    .section-title { font-size: clamp(32px, 4vw, 48px); font-weight: 800; color: #fff; letter-spacing: -1px; line-height: 1.1; margin-bottom: 16px; }
+    .section-sub { font-size: 16px; color: rgba(255,255,255,.5); max-width: 500px; line-height: 1.7; }
+
+    /* ── Services ── */
+    #services-wrap { background: #080d08; }
+    .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 56px; }
+    .service-card {
+      background: var(--card-bg); border: 1px solid var(--card-border);
+      border-radius: 20px; padding: 32px; cursor: default;
+      transition: background .3s, border-color .3s, transform .3s;
+      position: relative; overflow: hidden;
+    }
+    .service-card::before {
+      content: ''; position: absolute; inset: 0; border-radius: 20px;
+      background: radial-gradient(ellipse at top left, rgba(34,197,94,.07) 0%, transparent 60%);
+      opacity: 0; transition: opacity .3s;
+    }
+    .service-card:hover { border-color: rgba(34,197,94,.3); transform: translateY(-4px); }
+    .service-card:hover::before { opacity: 1; }
+    .service-icon {
+      width: 50px; height: 50px; background: rgba(34,197,94,.1); border: 1px solid rgba(34,197,94,.2);
+      border-radius: 14px; display: flex; align-items: center; justify-content: center; margin-bottom: 22px;
+      transition: background .3s;
+    }
+    .service-card:hover .service-icon { background: rgba(34,197,94,.2); }
+    .service-icon svg { width: 22px; height: 22px; color: var(--green); stroke: var(--green); }
+    .service-card h3 { font-size: 17px; font-weight: 700; color: #fff; margin-bottom: 10px; }
+    .service-card p { font-size: 13px; color: rgba(255,255,255,.5); line-height: 1.7; }
+    .service-cta {
+      background: linear-gradient(135deg, #052e16, #0d4a1f);
+      border: 1px solid rgba(34,197,94,.25); display: flex; flex-direction: column; justify-content: space-between;
+    }
+    .service-cta:hover { border-color: rgba(34,197,94,.5); }
+    .service-cta h3 { font-size: 22px; font-weight: 800; color: #fff; margin-bottom: 10px; }
+    .service-cta p { color: rgba(255,255,255,.5); font-size: 13px; line-height: 1.7; }
+    .cta-link {
+      display: inline-flex; align-items: center; gap: 8px; margin-top: 24px;
+      background: var(--green); color: #fff; text-decoration: none;
+      padding: 12px 22px; border-radius: 10px; font-size: 13px; font-weight: 700;
+      width: fit-content; box-shadow: 0 0 20px rgba(34,197,94,.3);
+      transition: background .2s, box-shadow .2s;
+    }
+    .cta-link:hover { background: var(--green-light); box-shadow: 0 0 35px rgba(34,197,94,.5); }
+
+    /* ── Stats bar ── */
+    .stats-bar { background: #0d150d; padding: 60px 40px; border-top: 1px solid rgba(34,197,94,.08); border-bottom: 1px solid rgba(34,197,94,.08); }
+    .stats-inner { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+    .stat-block { text-align: center; padding: 30px 20px; background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 16px; }
+    .stat-block-num { font-size: 44px; font-weight: 900; color: var(--green); letter-spacing: -2px; line-height: 1; margin-bottom: 8px; }
+    .stat-block-label { font-size: 12px; color: rgba(255,255,255,.4); font-weight: 600; text-transform: uppercase; letter-spacing: 1px; }
+
+    /* ── About ── */
+    #about-wrap { background: var(--black); }
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+    .about-visual {
+      background: linear-gradient(135deg, #0d2a0d, #1a4a1a);
+      border: 1px solid rgba(34,197,94,.15); border-radius: 24px;
+      padding: 50px 40px; text-align: center; position: relative;
+    }
+    .about-avatars { display: flex; justify-content: center; gap: 24px; margin-bottom: 28px; }
+    .avatar {
+      display: flex; flex-direction: column; align-items: center; gap: 10px;
+    }
+    .avatar-ring {
+      width: 80px; height: 80px; border-radius: 50%;
+      border: 2px solid rgba(34,197,94,.4);
+      background: rgba(34,197,94,.1);
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 0 25px rgba(34,197,94,.15);
+    }
+    .avatar-ring svg { width: 40px; height: 40px; fill: rgba(34,197,94,.7); }
+    .avatar span { font-size: 13px; font-weight: 700; color: rgba(255,255,255,.7); letter-spacing: .5px; }
+    .about-company { font-size: 22px; font-weight: 800; color: #fff; margin-bottom: 6px; }
+    .about-location { font-size: 13px; color: rgba(255,255,255,.4); }
+    .badge-float {
+      position: absolute; background: var(--black); border: 1px solid rgba(34,197,94,.2);
+      border-radius: 14px; padding: 12px 18px; box-shadow: 0 8px 30px rgba(0,0,0,.5);
+    }
+    .badge-float.tl { top: -18px; left: -18px; }
+    .badge-float.br { bottom: -18px; right: -18px; background: #0d2a0d; }
+    .badge-float .big { font-size: 22px; font-weight: 900; color: var(--green); line-height: 1; }
+    .badge-float .sm { font-size: 10px; color: rgba(255,255,255,.4); font-weight: 600; text-transform: uppercase; letter-spacing: .5px; }
+    .about-text .section-sub { margin-bottom: 32px; }
+    .checklist { list-style: none; display: flex; flex-direction: column; gap: 14px; }
+    .checklist li { display: flex; align-items: flex-start; gap: 12px; }
+    .check-icon {
+      width: 22px; height: 22px; background: rgba(34,197,94,.15); border: 1px solid rgba(34,197,94,.3);
+      border-radius: 6px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px;
+    }
+    .check-icon svg { width: 12px; height: 12px; stroke: var(--green); }
+    .checklist li p { font-size: 14px; color: rgba(255,255,255,.7); line-height: 1.6; }
+    .checklist li strong { color: #fff; }
+
+    /* ── Process ── */
+    #process-wrap { background: #080d08; }
+    .process-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 56px; }
+    .process-card {
+      background: var(--card-bg); border: 1px solid var(--card-border);
+      border-radius: 20px; padding: 36px 30px; position: relative;
+      transition: border-color .3s;
+    }
+    .process-card:hover { border-color: rgba(34,197,94,.25); }
+    .process-num {
+      font-size: 80px; font-weight: 900; color: transparent;
+      -webkit-text-stroke: 1px rgba(34,197,94,.2);
+      line-height: 1; margin-bottom: 16px; letter-spacing: -3px;
+    }
+    .process-card h3 { font-size: 20px; font-weight: 700; color: #fff; margin-bottom: 10px; }
+    .process-card p { font-size: 13px; color: rgba(255,255,255,.5); line-height: 1.7; }
+
+    /* ── Reviews ── */
+    #reviews-wrap { background: var(--black); }
+    .reviews-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 56px; }
+    .review-card {
+      background: var(--card-bg); border: 1px solid var(--card-border);
+      border-radius: 20px; padding: 28px; backdrop-filter: blur(10px);
+      transition: border-color .3s, transform .3s;
+    }
+    .review-card:hover { border-color: rgba(34,197,94,.2); transform: translateY(-3px); }
+    .review-stars { display: flex; gap: 3px; margin-bottom: 16px; }
+    .star { width: 14px; height: 14px; fill: #fbbf24; }
+    .star.half { fill: url(#half); }
+    .review-text { font-size: 13px; color: rgba(255,255,255,.6); line-height: 1.75; margin-bottom: 20px; font-style: italic; }
+    .reviewer { display: flex; align-items: center; gap: 12px; }
+    .reviewer-avatar {
+      width: 36px; height: 36px; border-radius: 50%; display: flex;
+      align-items: center; justify-content: center; font-size: 12px; font-weight: 700; flex-shrink: 0;
+    }
+    .reviewer-name { font-size: 13px; font-weight: 700; color: #fff; }
+    .reviewer-loc { font-size: 11px; color: rgba(255,255,255,.35); }
+
+    /* ── Contact ── */
+    #contact-wrap { background: #080d08; }
+    .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: start; }
+    .contact-phones { display: flex; flex-direction: column; gap: 20px; margin: 36px 0; }
+    .phone-card {
+      display: flex; align-items: center; gap: 16px;
+      background: var(--card-bg); border: 1px solid var(--card-border);
+      border-radius: 16px; padding: 20px 24px;
+      transition: border-color .3s, background .3s;
+    }
+    .phone-card:hover { border-color: rgba(34,197,94,.3); background: rgba(34,197,94,.05); }
+    .phone-icon {
+      width: 46px; height: 46px; background: rgba(34,197,94,.1); border: 1px solid rgba(34,197,94,.2);
+      border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    }
+    .phone-icon svg { width: 20px; height: 20px; stroke: var(--green); }
+    .phone-who { font-size: 11px; color: rgba(255,255,255,.35); font-weight: 600; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px; }
+    .phone-num { font-size: 22px; font-weight: 800; color: #fff; text-decoration: none; letter-spacing: -0.5px; transition: color .2s; }
+    .phone-num:hover { color: var(--green); }
+    .phone-tag { font-size: 11px; color: var(--green); background: rgba(34,197,94,.1); border-radius: 6px; padding: 2px 8px; font-weight: 600; margin-top: 2px; display: inline-block; }
+    .form-card {
+      background: rgba(255,255,255,.03); border: 1px solid rgba(255,255,255,.08);
+      border-radius: 24px; padding: 36px;
+    }
+    .form-card h3 { font-size: 22px; font-weight: 800; color: #fff; margin-bottom: 28px; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .form-group { margin-bottom: 14px; }
+    .form-group label { display: block; font-size: 11px; font-weight: 700; color: rgba(255,255,255,.4); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
+    .form-group input, .form-group select, .form-group textarea {
+      width: 100%; background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.1);
+      border-radius: 12px; padding: 13px 16px; color: #fff; font-size: 13px; font-family: 'Poppins', sans-serif;
+      outline: none; transition: border-color .2s, background .2s;
+    }
+    .form-group input::placeholder, .form-group textarea::placeholder { color: rgba(255,255,255,.25); }
+    .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+      border-color: rgba(34,197,94,.5); background: rgba(34,197,94,.05);
+    }
+    .form-group select { cursor: pointer; }
+    .form-group select option { background: #0d150d; }
+    .form-group textarea { resize: none; }
+    .submit-btn {
+      width: 100%; background: var(--green); color: #fff; border: none; cursor: pointer;
+      padding: 15px; border-radius: 12px; font-size: 14px; font-weight: 700; font-family: 'Poppins', sans-serif;
+      box-shadow: 0 0 30px rgba(34,197,94,.35); transition: background .2s, box-shadow .2s, transform .15s;
+      margin-top: 6px;
+    }
+    .submit-btn:hover { background: var(--green-light); box-shadow: 0 0 50px rgba(34,197,94,.55); transform: translateY(-1px); }
+    .submit-btn:disabled { opacity: .6; cursor: not-allowed; transform: none; }
+    .form-note { font-size: 11px; color: rgba(255,255,255,.25); text-align: center; margin-top: 12px; }
+    #success-msg { display: none; text-align: center; padding: 40px 20px; }
+    #success-msg .check { width: 64px; height: 64px; background: rgba(34,197,94,.15); border: 1px solid rgba(34,197,94,.3); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; }
+    #success-msg h4 { font-size: 22px; font-weight: 800; color: #fff; margin-bottom: 8px; }
+    #success-msg p { font-size: 14px; color: rgba(255,255,255,.5); }
+
+    /* ── Footer ── */
+    footer {
+      background: #030603; border-top: 1px solid rgba(34,197,94,.08);
+      padding: 36px 40px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px;
+    }
+    .footer-phones { display: flex; gap: 24px; flex-wrap: wrap; }
+    .footer-phones a { font-size: 13px; color: rgba(255,255,255,.4); text-decoration: none; transition: color .2s; }
+    .footer-phones a:hover { color: var(--green); }
+    .footer-copy { font-size: 12px; color: rgba(255,255,255,.2); }
+
+    /* ── Reveal ── */
+    .reveal { opacity: 0; transform: translateY(28px); transition: opacity .65s ease, transform .65s ease; }
+    .reveal.up { opacity: 1; transform: translateY(0); }
+
+    /* ── Responsive ── */
+    @media (max-width: 900px) {
+      #nav { padding: 16px 24px; }
+      #nav.solid { padding: 12px 24px; }
+      .nav-links { display: none; }
+      .hamburger { display: block; }
+      .hero-content { padding: 0 24px; padding-top: 80px; }
+      .hero-stats { gap: 24px; flex-wrap: wrap; }
+      section { padding: 72px 24px; }
+      .services-grid, .process-grid, .reviews-grid { grid-template-columns: 1fr; }
+      .about-grid, .contact-grid { grid-template-columns: 1fr; gap: 40px; }
+      .stats-inner { grid-template-columns: repeat(2, 1fr); }
+      footer { padding: 28px 24px; flex-direction: column; align-items: flex-start; }
+      .form-row { grid-template-columns: 1fr; }
+      .stats-bar { padding: 48px 24px; }
+    }
   </style>
 </head>
-<body class="bg-slate-50 text-slate-800">
+<body>
 
-  <!-- ═══════════════════════════════ NAVBAR ═══════════════════════════════ -->
-  <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 bg-transparent" aria-label="Main navigation">
-    <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
-      <a href="#home" class="flex items-center gap-2 cursor-pointer">
-        <div class="w-9 h-9 bg-green-500 rounded-lg flex items-center justify-center flex-shrink-0">
-          <!-- Leaf SVG icon -->
-          <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-            <path d="M17 8C8 10 5.9 16.17 3.82 21.34L5.71 22l1-2.3A4.49 4.49 0 0 0 8 20C19 20 22 3 22 3c-1 2-8 2-8 2 0-2 2-4 2-4s-4 1-5 3c-2 4.5-2 7 2 10-3.27-.26-5.74-3.01-5.74-3.01C5.69 32.5 9 34 17 32c0 0-2.22-7.22 0-24z"/>
-          </svg>
-        </div>
-        <span class="text-white font-heading font-700 text-lg leading-tight">
-          Paradise<br /><span class="text-green-400 font-600 text-sm leading-none">Lawn Co.</span>
-        </span>
+<!-- SVG half-star def -->
+<svg width="0" height="0" style="position:absolute">
+  <defs>
+    <linearGradient id="half" x1="0" x2="1" y1="0" y2="0">
+      <stop offset="50%" stop-color="#fbbf24"/>
+      <stop offset="50%" stop-color="#374151"/>
+    </linearGradient>
+  </defs>
+</svg>
+
+<!-- ═══ NAVBAR ═══ -->
+<nav id="nav">
+  <a class="nav-logo" href="#hero">
+    <div class="logo-mark">
+      <svg fill="white" viewBox="0 0 24 24"><path d="M17 8C8 10 5.9 16.17 3.82 21.34L5.71 22l1-2.3A4.49 4.49 0 008 20C19 20 22 3 22 3c-1 2-8 2-8 2 0-2 2-4 2-4s-4 1-5 3c-2 4.5-2 7 2 10-3.27-.26-5.74-3.01-5.74-3.01z"/></svg>
+    </div>
+    <div class="logo-text"><strong>B&amp;M</strong><span>Lawn Care</span></div>
+  </a>
+  <div class="nav-links">
+    <a href="#services-wrap">Services</a>
+    <a href="#about-wrap">About</a>
+    <a href="#reviews-wrap">Reviews</a>
+    <a href="#contact-wrap" class="nav-cta">Free Quote</a>
+  </div>
+  <button class="hamburger" id="ham" aria-label="Menu" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- Mobile menu -->
+<div id="mobile-menu" role="dialog" aria-modal="true" aria-label="Navigation">
+  <button class="close-btn" id="close-menu" aria-label="Close menu">&times;</button>
+  <a href="#services-wrap" onclick="closeMenu()">Services</a>
+  <a href="#about-wrap" onclick="closeMenu()">About</a>
+  <a href="#reviews-wrap" onclick="closeMenu()">Reviews</a>
+  <a href="#contact-wrap" onclick="closeMenu()" style="color:var(--green)">Free Quote</a>
+</div>
+
+<!-- ═══ HERO ═══ -->
+<section id="hero" aria-label="Hero">
+  <canvas id="hero-canvas" aria-hidden="true"></canvas>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="hero-badge">
+      <span class="badge-dot"></span>
+      <span class="badge-text">Now Booking — Paradise, NL</span>
+    </div>
+    <h1 class="hero-title">
+      <span class="hero-t1">B&amp;M</span>
+      <span class="hero-t2">LAWN CARE</span>
+    </h1>
+    <p class="hero-sub">Beckham &amp; Mason bring professionalism, precision, and pride to every yard in Paradise. Book your free quote today.</p>
+    <div class="hero-btns">
+      <a href="#contact-wrap" class="btn-primary">
+        <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
+        Get a Free Quote
       </a>
-
-      <!-- Desktop nav -->
-      <div class="hidden md:flex items-center gap-8">
-        <a href="#services" class="text-white/80 hover:text-white font-medium text-sm transition-colors duration-200 cursor-pointer">Services</a>
-        <a href="#about" class="text-white/80 hover:text-white font-medium text-sm transition-colors duration-200 cursor-pointer">About Us</a>
-        <a href="#reviews" class="text-white/80 hover:text-white font-medium text-sm transition-colors duration-200 cursor-pointer">Reviews</a>
-        <a href="#contact" class="bg-green-500 hover:bg-green-400 text-white font-semibold text-sm px-5 py-2.5 rounded-lg btn-primary cursor-pointer">Get Free Quote</a>
-      </div>
-
-      <!-- Mobile menu button -->
-      <button id="menuBtn" class="md:hidden text-white cursor-pointer p-2 rounded-lg hover:bg-white/10 transition-colors duration-200" aria-label="Open menu" aria-expanded="false">
-        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
-        </svg>
-      </button>
+      <a href="tel:7097704579" class="btn-outline">
+        <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
+        Call (709) 770-4579
+      </a>
     </div>
-
-    <!-- Mobile menu -->
-    <div id="mobileMenu" class="md:hidden hidden bg-green-950 border-t border-green-800">
-      <div class="px-6 py-4 flex flex-col gap-4">
-        <a href="#services" class="text-white/80 hover:text-white font-medium text-sm transition-colors duration-200 cursor-pointer" onclick="closeMobileMenu()">Services</a>
-        <a href="#about" class="text-white/80 hover:text-white font-medium text-sm transition-colors duration-200 cursor-pointer" onclick="closeMobileMenu()">About Us</a>
-        <a href="#reviews" class="text-white/80 hover:text-white font-medium text-sm transition-colors duration-200 cursor-pointer" onclick="closeMobileMenu()">Reviews</a>
-        <a href="#contact" class="bg-green-500 hover:bg-green-400 text-white font-semibold text-sm px-5 py-3 rounded-lg text-center transition-colors duration-200 cursor-pointer" onclick="closeMobileMenu()">Get Free Quote</a>
-      </div>
+    <div class="hero-stats">
+      <div class="stat-item"><div class="stat-num">4.9★</div><div class="stat-label">Customer Rating</div></div>
+      <div class="stat-item"><div class="stat-num">100%</div><div class="stat-label">Satisfaction</div></div>
+      <div class="stat-item"><div class="stat-num">Free</div><div class="stat-label">Quotes</div></div>
     </div>
-  </nav>
+  </div>
+</section>
 
-  <!-- ═══════════════════════════════ HERO ═══════════════════════════════ -->
-  <section id="home" class="hero-bg min-h-screen flex items-center relative overflow-hidden">
-    <!-- Background texture -->
-    <div class="absolute inset-0 opacity-5" aria-hidden="true">
-      <svg width="100%" height="100%"><pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M 40 0 L 0 0 0 40" fill="none" stroke="white" stroke-width="1"/></pattern><rect width="100%" height="100%" fill="url(#grid)"/></svg>
-    </div>
+<!-- ═══ MARQUEE ═══ -->
+<div class="marquee-wrap" aria-hidden="true">
+  <div class="marquee-track" id="marquee"></div>
+</div>
 
-    <!-- Decorative circles -->
-    <div class="absolute top-20 right-10 w-72 h-72 bg-green-700/20 rounded-full blur-3xl" aria-hidden="true"></div>
-    <div class="absolute bottom-20 left-10 w-96 h-96 bg-green-600/15 rounded-full blur-3xl" aria-hidden="true"></div>
-
-    <div class="max-w-6xl mx-auto px-6 pt-28 pb-20 relative z-10">
-      <div class="max-w-2xl">
-        <!-- Badge -->
-        <div class="inline-flex items-center gap-2 bg-green-800/60 border border-green-600/40 rounded-full px-4 py-1.5 mb-6">
-          <span class="w-2 h-2 bg-green-400 rounded-full animate-pulse" aria-hidden="true"></span>
-          <span class="text-green-300 text-sm font-medium">Now Serving Paradise &amp; Surrounding Areas</span>
-        </div>
-
-        <h1 class="text-white text-5xl md:text-6xl font-heading font-800 leading-tight mb-6">
-          Your Lawn,<br />
-          <span class="text-green-400">Perfectly</span><br />
-          Maintained.
-        </h1>
-
-        <p class="text-white/70 text-lg leading-relaxed mb-8 max-w-xl">
-          Professional, reliable lawn care from Beckham &amp; Mason — two dedicated young men committed to keeping your yard looking its absolute best.
-        </p>
-
-        <!-- CTA buttons -->
-        <div class="flex flex-col sm:flex-row gap-4 mb-12">
-          <a href="#contact" class="bg-green-500 hover:bg-green-400 text-white font-semibold px-8 py-4 rounded-xl text-center btn-primary cursor-pointer inline-block">
-            Get Your Free Quote
-          </a>
-          <a href="tel:7097704579" class="bg-white/10 hover:bg-white/20 border border-white/20 text-white font-semibold px-8 py-4 rounded-xl text-center transition-colors duration-200 cursor-pointer inline-block">
-            Call or Text Us
-          </a>
-        </div>
-
-        <!-- Trust stats -->
-        <div class="flex flex-wrap gap-8">
-          <div>
-            <p class="text-white text-3xl font-heading font-700">100%</p>
-            <p class="text-white/50 text-sm">Satisfaction Guaranteed</p>
-          </div>
-          <div class="border-l border-white/20 pl-8">
-            <p class="text-white text-3xl font-heading font-700">Free</p>
-            <p class="text-white/50 text-sm">Estimates, No Obligation</p>
-          </div>
-          <div class="border-l border-white/20 pl-8">
-            <p class="text-white text-3xl font-heading font-700">5★</p>
-            <p class="text-white/50 text-sm">Rated by Our Customers</p>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Scroll indicator -->
-    <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-50" aria-hidden="true">
-      <span class="text-white/60 text-xs font-medium">Scroll</span>
-      <div class="w-px h-8 bg-gradient-to-b from-white/60 to-transparent"></div>
-    </div>
+<!-- ═══ SERVICES ═══ -->
+<div id="services-wrap">
+  <section>
+    <p class="section-label reveal">What We Do</p>
+    <h2 class="section-title reveal">Premium Lawn Services</h2>
+    <p class="section-sub reveal">Every job done right — no shortcuts, no excuses. Just great results.</p>
+    <div class="services-grid" id="services-grid"></div>
   </section>
+</div>
 
-  <!-- ═══════════════════════════════ SERVICES ═══════════════════════════════ -->
-  <section id="services" class="py-24 bg-white">
-    <div class="max-w-6xl mx-auto px-6">
-      <div class="text-center mb-16 reveal">
-        <span class="text-green-600 font-semibold text-sm uppercase tracking-widest">What We Do</span>
-        <h2 class="text-slate-900 text-4xl font-heading font-700 mt-2 mb-4">Our Services</h2>
-        <p class="text-slate-500 text-lg max-w-xl mx-auto leading-relaxed">Everything your lawn needs to look sharp, stay healthy, and make the neighbours notice.</p>
+<!-- ═══ STATS ═══ -->
+<div class="stats-bar">
+  <div class="stats-inner" id="stats-inner"></div>
+</div>
+
+<!-- ═══ ABOUT ═══ -->
+<div id="about-wrap">
+  <section>
+    <div class="about-grid">
+      <div class="about-visual reveal">
+        <div class="badge-float tl"><div class="big">4.9</div><div class="sm">Avg Rating</div></div>
+        <div class="about-avatars">
+          <div class="avatar">
+            <div class="avatar-ring">
+              <svg viewBox="0 0 24 24"><path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z"/></svg>
+            </div>
+            <span>Beckham</span>
+          </div>
+          <div class="avatar">
+            <div class="avatar-ring">
+              <svg viewBox="0 0 24 24"><path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z"/></svg>
+            </div>
+            <span>Mason</span>
+          </div>
+        </div>
+        <div class="about-company">B&amp;M Lawn Care</div>
+        <div class="about-location">Paradise, NL &bull; Est. 2024</div>
+        <div class="badge-float br"><div class="big">100%</div><div class="sm">Satisfaction</div></div>
       </div>
-
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-
-        <!-- Service 1 -->
-        <div class="bg-slate-50 rounded-2xl p-8 card-hover cursor-default reveal border border-slate-100">
-          <div class="w-14 h-14 bg-green-100 rounded-xl flex items-center justify-center mb-6">
-            <svg class="w-7 h-7 text-green-700" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M4 20h16M4 20V9l8-6 8 6v11M10 20v-6h4v6"/>
-            </svg>
-          </div>
-          <h3 class="text-slate-900 text-xl font-heading font-600 mb-3">Lawn Mowing</h3>
-          <p class="text-slate-500 leading-relaxed text-sm">Regular mowing to keep your grass at the perfect height. We mow, trim edges, and blow off clippings every visit.</p>
-        </div>
-
-        <!-- Service 2 -->
-        <div class="bg-slate-50 rounded-2xl p-8 card-hover cursor-default reveal border border-slate-100">
-          <div class="w-14 h-14 bg-green-100 rounded-xl flex items-center justify-center mb-6">
-            <svg class="w-7 h-7 text-green-700" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"/>
-            </svg>
-          </div>
-          <h3 class="text-slate-900 text-xl font-heading font-600 mb-3">Edge Trimming</h3>
-          <p class="text-slate-500 leading-relaxed text-sm">Clean, sharp edges along driveways, walkways, and garden beds that give your property that polished, finished look.</p>
-        </div>
-
-        <!-- Service 3 -->
-        <div class="bg-slate-50 rounded-2xl p-8 card-hover cursor-default reveal border border-slate-100">
-          <div class="w-14 h-14 bg-green-100 rounded-xl flex items-center justify-center mb-6">
-            <svg class="w-7 h-7 text-green-700" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707"/>
-            </svg>
-          </div>
-          <h3 class="text-slate-900 text-xl font-heading font-600 mb-3">Yard Cleanup</h3>
-          <p class="text-slate-500 leading-relaxed text-sm">Spring and fall cleanup including leaf removal, debris clearing, and general tidying to get your yard season-ready.</p>
-        </div>
-
-        <!-- Service 4 -->
-        <div class="bg-slate-50 rounded-2xl p-8 card-hover cursor-default reveal border border-slate-100">
-          <div class="w-14 h-14 bg-green-100 rounded-xl flex items-center justify-center mb-6">
-            <svg class="w-7 h-7 text-green-700" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 004 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064"/>
-            </svg>
-          </div>
-          <h3 class="text-slate-900 text-xl font-heading font-600 mb-3">Garden Bed Weeding</h3>
-          <p class="text-slate-500 leading-relaxed text-sm">Hand-pulling weeds from garden beds and borders so your plants get the nutrients and space they need to thrive.</p>
-        </div>
-
-        <!-- Service 5 -->
-        <div class="bg-slate-50 rounded-2xl p-8 card-hover cursor-default reveal border border-slate-100">
-          <div class="w-14 h-14 bg-green-100 rounded-xl flex items-center justify-center mb-6">
-            <svg class="w-7 h-7 text-green-700" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
-            </svg>
-          </div>
-          <h3 class="text-slate-900 text-xl font-heading font-600 mb-3">Regular Maintenance</h3>
-          <p class="text-slate-500 leading-relaxed text-sm">Weekly or bi-weekly lawn care packages tailored to your schedule and budget. Consistent, dependable service all season.</p>
-        </div>
-
-        <!-- Service 6 — CTA card -->
-        <div class="bg-green-800 rounded-2xl p-8 card-hover cursor-pointer reveal flex flex-col justify-between">
-          <div>
-            <h3 class="text-white text-xl font-heading font-600 mb-3">Not Sure What You Need?</h3>
-            <p class="text-green-200/80 leading-relaxed text-sm">We'll come take a look and give you a free, no-pressure quote for exactly what your yard needs.</p>
-          </div>
-          <a href="#contact" class="mt-6 inline-flex items-center gap-2 bg-green-500 hover:bg-green-400 text-white font-semibold px-6 py-3 rounded-xl btn-primary cursor-pointer text-sm">
-            Get a Free Quote
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
-            </svg>
-          </a>
-        </div>
-
+      <div class="about-text reveal">
+        <p class="section-label">Who We Are</p>
+        <h2 class="section-title">Meet Beckham &amp; Mason</h2>
+        <p class="section-sub">We're two 15-year-olds from Paradise who take real pride in our work. We turned a simple idea into a proper lawn care business — and we do it right.</p>
+        <ul class="checklist" style="margin-top:28px">
+          <li>
+            <div class="check-icon"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg></div>
+            <p><strong>On time, every time.</strong> We show up when we say we will — no excuses.</p>
+          </li>
+          <li>
+            <div class="check-icon"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg></div>
+            <p><strong>Affordable rates.</strong> Competitive pricing, no hidden fees, no surprises.</p>
+          </li>
+          <li>
+            <div class="check-icon"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg></div>
+            <p><strong>Locally rooted.</strong> We live here — keeping Paradise looking great matters to us.</p>
+          </li>
+          <li>
+            <div class="check-icon"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg></div>
+            <p><strong>Quality guaranteed.</strong> Not happy? We'll make it right, no questions asked.</p>
+          </li>
+        </ul>
       </div>
     </div>
   </section>
+</div>
 
-  <!-- ═══════════════════════════════ ABOUT ═══════════════════════════════ -->
-  <section id="about" class="py-24 bg-slate-50">
-    <div class="max-w-6xl mx-auto px-6">
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-
-        <!-- Left: image placeholder -->
-        <div class="reveal">
-          <div class="relative">
-            <div class="bg-gradient-to-br from-green-700 to-green-900 rounded-3xl aspect-square max-w-md mx-auto lg:mx-0 flex flex-col items-center justify-center p-12 text-center">
-              <!-- Two silhouette icons representing Beckham & Mason -->
-              <div class="flex gap-6 mb-8">
-                <div class="flex flex-col items-center gap-2">
-                  <div class="w-20 h-20 bg-green-500/40 rounded-full flex items-center justify-center border-2 border-green-400/50">
-                    <svg class="w-10 h-10 text-green-200" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                      <path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z"/>
-                    </svg>
-                  </div>
-                  <span class="text-green-200 font-heading font-600 text-sm">Beckham</span>
-                </div>
-                <div class="flex flex-col items-center gap-2">
-                  <div class="w-20 h-20 bg-green-500/40 rounded-full flex items-center justify-center border-2 border-green-400/50">
-                    <svg class="w-10 h-10 text-green-200" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                      <path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z"/>
-                    </svg>
-                  </div>
-                  <span class="text-green-200 font-heading font-600 text-sm">Mason</span>
-                </div>
-              </div>
-              <p class="text-green-100 font-heading font-600 text-xl">Paradise Lawn Co.</p>
-              <p class="text-green-300/80 text-sm mt-1">Est. 2024 &bull; Paradise, NL</p>
-            </div>
-
-            <!-- Floating badge -->
-            <div class="absolute -bottom-4 -right-4 lg:right-8 bg-white rounded-2xl shadow-xl px-5 py-4 flex items-center gap-3 border border-slate-100">
-              <div class="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0">
-                <svg class="w-5 h-5 text-green-700" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"/>
-                </svg>
-              </div>
-              <div>
-                <p class="text-slate-900 font-semibold text-sm">Trusted &amp; Reliable</p>
-                <p class="text-slate-500 text-xs">100% Satisfaction</p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Right: text -->
-        <div class="reveal">
-          <span class="text-green-600 font-semibold text-sm uppercase tracking-widest">Who We Are</span>
-          <h2 class="text-slate-900 text-4xl font-heading font-700 mt-2 mb-6">Meet Beckham &amp; Mason</h2>
-          <p class="text-slate-600 leading-relaxed mb-5">
-            We're two 15-year-old guys from Paradise who take real pride in our work. What started as a way to help out neighbours has turned into a proper lawn care business — and we're just getting started.
-          </p>
-          <p class="text-slate-600 leading-relaxed mb-8">
-            We show up on time, do the job right, and treat every yard like it's our own. No shortcuts, no excuses — just a clean, well-cut lawn every single time.
-          </p>
-
-          <!-- Value props -->
-          <ul class="space-y-4">
-            <li class="flex items-start gap-3">
-              <div class="w-6 h-6 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
-                <svg class="w-3.5 h-3.5 text-green-700" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/>
-                </svg>
-              </div>
-              <div>
-                <p class="text-slate-800 font-semibold text-sm">Dependable &amp; Punctual</p>
-                <p class="text-slate-500 text-sm">We show up when we say we will, every time.</p>
-              </div>
-            </li>
-            <li class="flex items-start gap-3">
-              <div class="w-6 h-6 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
-                <svg class="w-3.5 h-3.5 text-green-700" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/>
-                </svg>
-              </div>
-              <div>
-                <p class="text-slate-800 font-semibold text-sm">Affordable Rates</p>
-                <p class="text-slate-500 text-sm">Competitive pricing with no hidden fees or surprises.</p>
-              </div>
-            </li>
-            <li class="flex items-start gap-3">
-              <div class="w-6 h-6 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
-                <svg class="w-3.5 h-3.5 text-green-700" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/>
-                </svg>
-              </div>
-              <div>
-                <p class="text-slate-800 font-semibold text-sm">Local &amp; Community-Focused</p>
-                <p class="text-slate-500 text-sm">We live here too — keeping Paradise looking great matters to us.</p>
-              </div>
-            </li>
-          </ul>
-        </div>
-
+<!-- ═══ PROCESS ═══ -->
+<div id="process-wrap">
+  <section>
+    <p class="section-label reveal">Simple Process</p>
+    <h2 class="section-title reveal">How It Works</h2>
+    <div class="process-grid">
+      <div class="process-card reveal">
+        <div class="process-num">01</div>
+        <h3>Call or Text</h3>
+        <p>Reach out to Beckham or Mason directly. Tell us what your yard needs and where you're located in Paradise.</p>
+      </div>
+      <div class="process-card reveal">
+        <div class="process-num">02</div>
+        <h3>Get a Free Quote</h3>
+        <p>We give you a fair, honest price with zero obligation. No hidden fees, no pressure — just a straight number.</p>
+      </div>
+      <div class="process-card reveal">
+        <div class="process-num">03</div>
+        <h3>Sit Back &amp; Relax</h3>
+        <p>We show up, get the job done perfectly, and leave your yard looking better than ever. Simple as that.</p>
       </div>
     </div>
   </section>
+</div>
 
-  <!-- ═══════════════════════════════ REVIEWS ═══════════════════════════════ -->
-  <section id="reviews" class="py-24 bg-white">
-    <div class="max-w-6xl mx-auto px-6">
+<!-- ═══ REVIEWS ═══ -->
+<div id="reviews-wrap">
+  <section>
+    <p class="section-label reveal">Customer Reviews</p>
+    <h2 class="section-title reveal">What People Are Saying</h2>
+    <p class="section-sub reveal">Real customers from Paradise, NL &mdash; 4.9 average across 12 reviews.</p>
+    <div class="reviews-grid" id="reviews-grid"></div>
+  </section>
+</div>
 
-      <div class="text-center mb-16 reveal">
-        <span class="text-green-600 font-semibold text-sm uppercase tracking-widest">Reviews</span>
-        <h2 class="text-slate-900 text-4xl font-heading font-700 mt-2 mb-4">What Our Customers Say</h2>
-        <div class="flex items-center justify-center gap-2 mt-2">
-          <div class="flex" aria-label="5 out of 5 stars">
-            <svg class="w-6 h-6 text-amber-400" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
-            <svg class="w-6 h-6 text-amber-400" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
-            <svg class="w-6 h-6 text-amber-400" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
-            <svg class="w-6 h-6 text-amber-400" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
-            <svg class="w-6 h-6 text-amber-400" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+<!-- ═══ CONTACT ═══ -->
+<div id="contact-wrap">
+  <section>
+    <div class="contact-grid">
+      <div>
+        <p class="section-label reveal">Get In Touch</p>
+        <h2 class="section-title reveal">Free Quote,<br/>No Obligation</h2>
+        <p class="section-sub reveal" style="margin-bottom:0">Call, text, or fill out the form — we'll get back to you fast with a fair price.</p>
+        <div class="contact-phones reveal">
+          <div class="phone-card">
+            <div class="phone-icon"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg></div>
+            <div>
+              <div class="phone-who">Beckham</div>
+              <a href="tel:7097704579" class="phone-num">(709) 770-4579</a>
+              <div class="phone-tag">Call or Text</div>
+            </div>
           </div>
-          <span class="text-slate-700 font-semibold">4.9 out of 5</span>
-          <span class="text-slate-400 text-sm">(12 reviews)</span>
+          <div class="phone-card">
+            <div class="phone-icon"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg></div>
+            <div>
+              <div class="phone-who">Mason</div>
+              <a href="tel:7093303409" class="phone-num">(709) 330-3409</a>
+              <div class="phone-tag">Call or Text</div>
+            </div>
+          </div>
         </div>
       </div>
-
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-
-        <!-- Review 1 — 5 stars -->
-        <article class="bg-slate-50 rounded-2xl p-6 border border-slate-100 card-hover reveal">
-          <div class="flex items-center gap-1 mb-4" aria-label="5 out of 5 stars">
-            <svg class="w-4 h-4 text-amber-400" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
-            <svg class="w-4 h-4 text-amber-400" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
-            <svg class="w-4 h-4 text-amber-400" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
-            <svg class="w-4 h-4 text-amber-400" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
-            <svg class="w-4 h-4 text-amber-400" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+      <div class="reveal">
+        <div class="form-card">
+          <h3>Request a Quote</h3>
+          <form id="quote-form" novalidate>
+            <div class="form-row">
+              <div class="form-group"><label for="fn">First Name</label><input id="fn" type="text" autocomplete="given-name" placeholder="John" required/></div>
+              <div class="form-group"><label for="ln">Last Name</label><input id="ln" type="text" autocomplete="family-name" placeholder="Smith" required/></div>
+            </div>
+            <div class="form-group"><label for="ph">Phone</label><input id="ph" type="tel" autocomplete="tel" placeholder="(709) 555-0100"/></div>
+            <div class="form-group"><label for="ad">Address</label><input id="ad" type="text" autocomplete="street-address" placeholder="123 Any St, Paradise"/></div>
+            <div class="form-group">
+              <label for="sv">Service Needed</label>
+              <select id="sv">
+                <option value="" disabled selected>Choose a service...</option>
+                <option>Lawn Mowing</option>
+                <option>Edge Trimming</option>
+                <option>Yard Cleanup</option>
+                <option>Garden Weeding</option>
+                <option>Regular Maintenance Package</option>
+                <option>Other / Not Sure</option>
+              </select>
+            </div>
+            <div class="form-group"><label for="mg">Details <span style="color:rgba(255,255,255,.2);font-weight:400;text-transform:none;letter-spacing:0">(optional)</span></label><textarea id="mg" rows="3" placeholder="Anything else we should know?"></textarea></div>
+            <button type="submit" class="submit-btn" id="sbtn">Send Quote Request</button>
+            <p class="form-note">We reply within a few hours!</p>
+          </form>
+          <div id="success-msg">
+            <div class="check"><svg width="28" height="28" fill="none" stroke="#22c55e" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg></div>
+            <h4>Request Sent!</h4>
+            <p>We'll get back to you with your free quote shortly.</p>
           </div>
-          <p class="text-slate-600 text-sm leading-relaxed mb-5">"Beckham and Mason did a fantastic job on my lawn. Showed up right on time and left everything looking immaculate. Very impressed!"</p>
-          <div class="flex items-center gap-3">
-            <div class="w-9 h-9 bg-green-200 rounded-full flex items-center justify-center flex-shrink-0">
-              <span class="text-green-800 font-semibold text-sm">SB</span>
-            </div>
-            <div>
-              <p class="text-slate-800 font-semibold text-sm">Sandra B.</p>
-              <p class="text-slate-400 text-xs">Paradise, NL</p>
-            </div>
-          </div>
-        </article>
-
-        <!-- Review 2 — 5 stars -->
-        <article class="bg-slate-50 rounded-2xl p-6 border border-slate-100 card-hover reveal">
-          <div class="flex items-center gap-1 mb-4" aria-label="5 out of 5 stars">
-            <svg class="w-4 h-4 text-amber-400" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
-            <svg class="w-4 h-4 text-amber-400" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
-            <svg class="w-4 h-4 text-amber-400" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
-            <svg class="w-4 h-4 text-amber-400" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
-            <svg class="w-4 h-4 text-amber-400" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
-          </div>
-          <p class="text-slate-600 text-sm leading-relaxed mb-5">"These two young lads are hardworking and professional. My yard has never looked this good. Highly recommend to anyone around Paradise!"</p>
-          <div class="flex items-center gap-3">
-            <div class="w-9 h-9 bg-blue-100 rounded-full flex items-center justify-center flex-shrink-0">
-              <span class="text-blue-800 font-semibold text-sm">DM</span>
-            </div>
-            <div>
-              <p class="text-slate-800 font-semibold text-sm">Derek M.</p>
-              <p class="text-slate-400 text-xs">Paradise, NL</p>
-            </div>
-          </div>
-        </article>
-
-        <!-- Review 3 — 4.5 stars -->
-        <article class="bg-slate-50 rounded-2xl p-6 border border-slate-100 card-hover reveal">
-          <div class="flex items-center gap-1 mb-4" aria-label="4.5 out of 5 stars">
-            <svg class="w-4 h-4 text-amber-400" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
-            <svg class="w-4 h-4 text-amber-400" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
-            <svg class="w-4 h-4 text-amber-400" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
-            <svg class="w-4 h-4 text-amber-400" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
-            <!-- Half star using clip -->
-            <div class="relative w-4 h-4" aria-hidden="true">
-              <svg class="w-4 h-4 text-gray-300 absolute" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
-              <svg class="w-4 h-4 text-amber-400 absolute" fill="currentColor" viewBox="0 0 20 20" style="clip-path:inset(0 50% 0 0)"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
-            </div>
-          </div>
-          <p class="text-slate-600 text-sm leading-relaxed mb-5">"Really impressed with how thorough they were. The edges were cleaner than when I do it myself. Will definitely be booking them again."</p>
-          <div class="flex items-center gap-3">
-            <div class="w-9 h-9 bg-purple-100 rounded-full flex items-center justify-center flex-shrink-0">
-              <span class="text-purple-800 font-semibold text-sm">LP</span>
-            </div>
-            <div>
-              <p class="text-slate-800 font-semibold text-sm">Linda P.</p>
-              <p class="text-slate-400 text-xs">Paradise, NL</p>
-            </div>
-          </div>
-        </article>
-
-        <!-- Review 4 — 5 stars -->
-        <article class="bg-slate-50 rounded-2xl p-6 border border-slate-100 card-hover reveal">
-          <div class="flex items-center gap-1 mb-4" aria-label="5 out of 5 stars">
-            <svg class="w-4 h-4 text-amber-400" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
-            <svg class="w-4 h-4 text-amber-400" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
-            <svg class="w-4 h-4 text-amber-400" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
-            <svg class="w-4 h-4 text-amber-400" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
-            <svg class="w-4 h-4 text-amber-400" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
-          </div>
-          <p class="text-slate-600 text-sm leading-relaxed mb-5">"Great price, great service. They were quick but didn't miss anything. The lawn looks perfect. I'll be calling them every two weeks."</p>
-          <div class="flex items-center gap-3">
-            <div class="w-9 h-9 bg-orange-100 rounded-full flex items-center justify-center flex-shrink-0">
-              <span class="text-orange-800 font-semibold text-sm">TW</span>
-            </div>
-            <div>
-              <p class="text-slate-800 font-semibold text-sm">Tom W.</p>
-              <p class="text-slate-400 text-xs">Paradise, NL</p>
-            </div>
-          </div>
-        </article>
-
-        <!-- Review 5 — 4.5 stars -->
-        <article class="bg-slate-50 rounded-2xl p-6 border border-slate-100 card-hover reveal">
-          <div class="flex items-center gap-1 mb-4" aria-label="4.5 out of 5 stars">
-            <svg class="w-4 h-4 text-amber-400" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
-            <svg class="w-4 h-4 text-amber-400" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
-            <svg class="w-4 h-4 text-amber-400" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
-            <svg class="w-4 h-4 text-amber-400" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
-            <div class="relative w-4 h-4" aria-hidden="true">
-              <svg class="w-4 h-4 text-gray-300 absolute" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
-              <svg class="w-4 h-4 text-amber-400 absolute" fill="currentColor" viewBox="0 0 20 20" style="clip-path:inset(0 50% 0 0)"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
-            </div>
-          </div>
-          <p class="text-slate-600 text-sm leading-relaxed mb-5">"Polite, hard-working, and they actually care about doing a good job. My yard looked spotless after their first visit. Solid work!"</p>
-          <div class="flex items-center gap-3">
-            <div class="w-9 h-9 bg-teal-100 rounded-full flex items-center justify-center flex-shrink-0">
-              <span class="text-teal-800 font-semibold text-sm">JR</span>
-            </div>
-            <div>
-              <p class="text-slate-800 font-semibold text-sm">Janet R.</p>
-              <p class="text-slate-400 text-xs">Paradise, NL</p>
-            </div>
-          </div>
-        </article>
-
-        <!-- Review 6 — 5 stars -->
-        <article class="bg-slate-50 rounded-2xl p-6 border border-slate-100 card-hover reveal">
-          <div class="flex items-center gap-1 mb-4" aria-label="5 out of 5 stars">
-            <svg class="w-4 h-4 text-amber-400" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
-            <svg class="w-4 h-4 text-amber-400" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
-            <svg class="w-4 h-4 text-amber-400" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
-            <svg class="w-4 h-4 text-amber-400" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
-            <svg class="w-4 h-4 text-amber-400" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
-          </div>
-          <p class="text-slate-600 text-sm leading-relaxed mb-5">"I'm genuinely impressed. Fair price, no hassle, and the lawn looks better than it has in years. Support your local kids — these two are the real deal."</p>
-          <div class="flex items-center gap-3">
-            <div class="w-9 h-9 bg-rose-100 rounded-full flex items-center justify-center flex-shrink-0">
-              <span class="text-rose-800 font-semibold text-sm">MH</span>
-            </div>
-            <div>
-              <p class="text-slate-800 font-semibold text-sm">Mark H.</p>
-              <p class="text-slate-400 text-xs">Paradise, NL</p>
-            </div>
-          </div>
-        </article>
-
+        </div>
       </div>
     </div>
   </section>
+</div>
 
-  <!-- ═══════════════════════════════ CONTACT / QUOTE ═══════════════════════════════ -->
-  <section id="contact" class="py-24 hero-bg relative overflow-hidden">
-    <div class="absolute inset-0 opacity-5" aria-hidden="true">
-      <svg width="100%" height="100%"><pattern id="grid2" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M 40 0 L 0 0 0 40" fill="none" stroke="white" stroke-width="1"/></pattern><rect width="100%" height="100%" fill="url(#grid2)"/></svg>
+<!-- ═══ FOOTER ═══ -->
+<footer>
+  <a class="nav-logo" href="#hero" style="text-decoration:none">
+    <div class="logo-mark"><svg fill="white" viewBox="0 0 24 24"><path d="M17 8C8 10 5.9 16.17 3.82 21.34L5.71 22l1-2.3A4.49 4.49 0 008 20C19 20 22 3 22 3c-1 2-8 2-8 2 0-2 2-4 2-4s-4 1-5 3c-2 4.5-2 7 2 10z"/></svg></div>
+    <div class="logo-text"><strong>B&amp;M</strong><span>Lawn Care</span></div>
+  </a>
+  <div class="footer-phones">
+    <a href="tel:7097704579">(709) 770-4579</a>
+    <a href="tel:7093303409">(709) 330-3409</a>
+    <span style="color:rgba(255,255,255,.2);font-size:13px">Paradise, NL</span>
+  </div>
+  <p class="footer-copy">&copy; 2025 B&amp;M Lawn Care</p>
+</footer>
+
+<script>
+// ── Nav ──
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => nav.classList.toggle('solid', scrollY > 60), {passive:true});
+const ham = document.getElementById('ham');
+const mob = document.getElementById('mobile-menu');
+ham.addEventListener('click', () => { mob.classList.toggle('open'); ham.setAttribute('aria-expanded', mob.classList.contains('open')); });
+document.getElementById('close-menu').addEventListener('click', closeMenu);
+function closeMenu() { mob.classList.remove('open'); ham.setAttribute('aria-expanded','false'); }
+
+// ── Marquee ──
+const marqueeItems = ['B&M Lawn Care','Paradise, NL','Free Quotes','Call or Text','Beckham & Mason','Professional Service','100% Satisfaction','Your Lawn, Our Pride'];
+const track = document.getElementById('marquee');
+const doubled = [...marqueeItems, ...marqueeItems];
+track.innerHTML = doubled.map(t=>`<span class="marquee-item"><span class="marquee-dot"></span>${t}</span>`).join('');
+
+// ── Services ──
+const services = [
+  { icon: '<circle cx="12" cy="12" r="3"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M3 12h1m8-9v1m8 8h1m-9 8v1M5.6 5.6l.7.7m12.1-.7l-.7.7m-12.1 12l.7-.7m12.1.7l-.7-.7"/>', title:'Lawn Mowing', desc:'Precise cuts every visit — trimmed edges, clean lines, and all clippings blown away. Your yard at its best.' },
+  { icon: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M4 20h16M4 20V9l8-5 8 5v11M10 20v-5h4v5"/>', title:'Edge Trimming', desc:'Sharp, defined edges along driveways, walkways, and garden beds that give your property a finished look.' },
+  { icon: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M5 3l14 0M5 8h14M5 13l14 0M5 18h14"/>', title:'Yard Cleanup', desc:'Spring and fall cleanups — leaves, debris, and any mess cleared away so your yard is season-ready.' },
+  { icon: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M12 6v12m-6-6h12"/>', title:'Garden Weeding', desc:'Hand-removing weeds from beds and borders so your plants get the room and nutrients they need to grow.' },
+  { icon: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>', title:'Regular Packages', desc:'Weekly or bi-weekly maintenance plans built around your yard and budget. Reliable all season long.' },
+];
+const sgrid = document.getElementById('services-grid');
+sgrid.innerHTML = services.map(s=>`
+  <div class="service-card reveal">
+    <div class="service-icon"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24">${s.icon}</svg></div>
+    <h3>${s.title}</h3>
+    <p>${s.desc}</p>
+  </div>`).join('') + `
+  <div class="service-card service-cta reveal">
+    <div>
+      <h3>Not Sure What You Need?</h3>
+      <p>We'll come take a look and give you a free, no-pressure quote for exactly what your yard needs.</p>
     </div>
-    <div class="absolute top-0 right-0 w-96 h-96 bg-green-600/15 rounded-full blur-3xl" aria-hidden="true"></div>
+    <a href="#contact-wrap" class="cta-link">Get a Free Quote <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg></a>
+  </div>`;
 
-    <div class="max-w-6xl mx-auto px-6 relative z-10">
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
+// ── Stats ──
+const stats = [['100%','Satisfaction Rate'],['4.9 ★','Avg Rating'],['Free','All Quotes'],['Paradise','Our Home']];
+document.getElementById('stats-inner').innerHTML = stats.map(([n,l])=>`<div class="stat-block reveal"><div class="stat-block-num">${n}</div><div class="stat-block-label">${l}</div></div>`).join('');
 
-        <!-- Left: info -->
-        <div class="reveal">
-          <span class="text-green-400 font-semibold text-sm uppercase tracking-widest">Contact Us</span>
-          <h2 class="text-white text-4xl font-heading font-700 mt-2 mb-4">Get Your Free Quote Today</h2>
-          <p class="text-white/70 leading-relaxed mb-10">No obligation, no pressure — just a friendly chat about what your yard needs and a fair price to match.</p>
-
-          <!-- Contact methods -->
-          <div class="space-y-6">
-            <div class="flex items-center gap-4">
-              <div class="w-12 h-12 bg-green-800/60 border border-green-600/40 rounded-xl flex items-center justify-center flex-shrink-0">
-                <svg class="w-5 h-5 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
-                </svg>
-              </div>
-              <div>
-                <p class="text-white/50 text-xs uppercase tracking-wider font-medium mb-1">Beckham — Call or Text</p>
-                <a href="tel:7097704579" class="text-white font-heading font-600 text-xl hover:text-green-400 transition-colors duration-200 cursor-pointer">(709) 770-4579</a>
-              </div>
-            </div>
-
-            <div class="flex items-center gap-4">
-              <div class="w-12 h-12 bg-green-800/60 border border-green-600/40 rounded-xl flex items-center justify-center flex-shrink-0">
-                <svg class="w-5 h-5 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
-                </svg>
-              </div>
-              <div>
-                <p class="text-white/50 text-xs uppercase tracking-wider font-medium mb-1">Mason — Call or Text</p>
-                <a href="tel:7093303409" class="text-white font-heading font-600 text-xl hover:text-green-400 transition-colors duration-200 cursor-pointer">(709) 330-3409</a>
-              </div>
-            </div>
-
-            <div class="flex items-center gap-4">
-              <div class="w-12 h-12 bg-green-800/60 border border-green-600/40 rounded-xl flex items-center justify-center flex-shrink-0">
-                <svg class="w-5 h-5 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
-                </svg>
-              </div>
-              <div>
-                <p class="text-white/50 text-xs uppercase tracking-wider font-medium mb-1">Service Area</p>
-                <p class="text-white font-heading font-600 text-xl">Paradise, NL &amp; Surrounding</p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Right: quote form -->
-        <div class="reveal">
-          <div class="bg-white rounded-3xl p-8 shadow-2xl">
-            <h3 class="text-slate-900 text-xl font-heading font-700 mb-6">Request a Free Quote</h3>
-            <form id="quoteForm" novalidate>
-              <div class="space-y-4">
-                <div class="grid grid-cols-2 gap-4">
-                  <div>
-                    <label for="firstName" class="block text-slate-700 text-sm font-semibold mb-1.5">First Name</label>
-                    <input id="firstName" name="firstName" type="text" autocomplete="given-name" required placeholder="John"
-                      class="w-full border border-slate-200 rounded-xl px-4 py-3 text-slate-800 text-sm placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all duration-200" />
-                  </div>
-                  <div>
-                    <label for="lastName" class="block text-slate-700 text-sm font-semibold mb-1.5">Last Name</label>
-                    <input id="lastName" name="lastName" type="text" autocomplete="family-name" required placeholder="Smith"
-                      class="w-full border border-slate-200 rounded-xl px-4 py-3 text-slate-800 text-sm placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all duration-200" />
-                  </div>
-                </div>
-
-                <div>
-                  <label for="phone" class="block text-slate-700 text-sm font-semibold mb-1.5">Phone Number</label>
-                  <input id="phone" name="phone" type="tel" autocomplete="tel" placeholder="(709) 555-0100"
-                    class="w-full border border-slate-200 rounded-xl px-4 py-3 text-slate-800 text-sm placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all duration-200" />
-                </div>
-
-                <div>
-                  <label for="address" class="block text-slate-700 text-sm font-semibold mb-1.5">Your Address</label>
-                  <input id="address" name="address" type="text" autocomplete="street-address" placeholder="123 Maple Street, Paradise"
-                    class="w-full border border-slate-200 rounded-xl px-4 py-3 text-slate-800 text-sm placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all duration-200" />
-                </div>
-
-                <div>
-                  <label for="service" class="block text-slate-700 text-sm font-semibold mb-1.5">Service Needed</label>
-                  <select id="service" name="service"
-                    class="w-full border border-slate-200 rounded-xl px-4 py-3 text-slate-800 text-sm focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all duration-200 cursor-pointer bg-white">
-                    <option value="" disabled selected>Select a service...</option>
-                    <option value="mowing">Lawn Mowing</option>
-                    <option value="trimming">Edge Trimming</option>
-                    <option value="cleanup">Yard Cleanup</option>
-                    <option value="weeding">Garden Bed Weeding</option>
-                    <option value="maintenance">Regular Maintenance Package</option>
-                    <option value="other">Other / Not Sure</option>
-                  </select>
-                </div>
-
-                <div>
-                  <label for="message" class="block text-slate-700 text-sm font-semibold mb-1.5">Additional Details <span class="text-slate-400 font-normal">(optional)</span></label>
-                  <textarea id="message" name="message" rows="3" placeholder="Anything else we should know about your yard?"
-                    class="w-full border border-slate-200 rounded-xl px-4 py-3 text-slate-800 text-sm placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all duration-200 resize-none"></textarea>
-                </div>
-
-                <button type="submit" id="submitBtn"
-                  class="w-full bg-green-600 hover:bg-green-500 text-white font-semibold py-4 rounded-xl btn-primary cursor-pointer transition-colors duration-200 text-sm">
-                  Send Quote Request
-                </button>
-
-                <p class="text-slate-400 text-xs text-center">We'll get back to you as soon as possible — usually within a few hours!</p>
-              </div>
-            </form>
-
-            <!-- Success message (hidden by default) -->
-            <div id="successMsg" class="hidden text-center py-8">
-              <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <svg class="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
-                </svg>
-              </div>
-              <h4 class="text-slate-900 font-heading font-700 text-lg mb-2">Request Sent!</h4>
-              <p class="text-slate-500 text-sm">Thanks! We'll be in touch with your free quote shortly.</p>
-            </div>
-          </div>
-        </div>
-
-      </div>
+// ── Reviews ──
+const reviews = [
+  { initials:'SB', color:'#14532d', text: 'Beckham and Mason did a fantastic job. On time, thorough, and left the yard looking immaculate. Highly impressed!', name:'Sandra B.', rating:5 },
+  { initials:'DM', color:'#1e3a5f', text: 'These young guys are hardworking and professional. My yard has never looked this good. 100% recommend to anyone in Paradise.', name:'Derek M.', rating:5 },
+  { initials:'LP', color:'#3b0764', text: 'Really impressed. The edges were cleaner than when I do it myself. Booking them again for sure.', name:'Linda P.', rating:4.5 },
+  { initials:'TW', color:'#431407', text: "Great price, great service. Quick but didn't miss anything. The lawn looks perfect every time.", name:'Tom W.', rating:5 },
+  { initials:'JR', color:'#134e4a', text: 'Polite, hard-working, actually care about quality. My yard was spotless after the very first visit.', name:'Janet R.', rating:4.5 },
+  { initials:'MH', color:'#881337', text: "Fair price, no hassle, lawn looks better than ever. Support these local kids — they're the real deal.", name:'Mark H.', rating:5 },
+];
+function starsSVG(r) {
+  let h = '';
+  for (let i = 1; i <= 5; i++) {
+    if (i <= r) h += `<svg class="star" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>`;
+    else if (i - .5 <= r) h += `<svg class="star" viewBox="0 0 20 20" style="fill:url(#half)"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>`;
+    else h += `<svg class="star" viewBox="0 0 20 20" style="fill:#374151"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>`;
+  }
+  return h;
+}
+document.getElementById('reviews-grid').innerHTML = reviews.map(r=>`
+  <article class="review-card reveal">
+    <div class="review-stars">${starsSVG(r.rating)}</div>
+    <p class="review-text">"${r.text}"</p>
+    <div class="reviewer">
+      <div class="reviewer-avatar" style="background:${r.color}">${r.initials}</div>
+      <div><div class="reviewer-name">${r.name}</div><div class="reviewer-loc">Paradise, NL</div></div>
     </div>
-  </section>
+  </article>`).join('');
 
-  <!-- ═══════════════════════════════ FOOTER ═══════════════════════════════ -->
-  <footer class="bg-green-950 py-10">
-    <div class="max-w-6xl mx-auto px-6">
-      <div class="flex flex-col md:flex-row items-center justify-between gap-6">
-        <div class="flex items-center gap-2">
-          <div class="w-8 h-8 bg-green-500 rounded-lg flex items-center justify-center flex-shrink-0">
-            <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-              <path d="M17 8C8 10 5.9 16.17 3.82 21.34L5.71 22l1-2.3A4.49 4.49 0 0 0 8 20C19 20 22 3 22 3c-1 2-8 2-8 2 0-2 2-4 2-4s-4 1-5 3c-2 4.5-2 7 2 10-3.27-.26-5.74-3.01-5.74-3.01C5.69 32.5 9 34 17 32c0 0-2.22-7.22 0-24z"/>
-            </svg>
-          </div>
-          <span class="text-white font-heading font-600 text-sm">Paradise Lawn Co.</span>
-        </div>
+// ── Scroll reveal ──
+const ro = new IntersectionObserver(entries => entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('up'); ro.unobserve(e.target); }}), { threshold: .08, rootMargin:'0px 0px -40px 0px' });
+document.querySelectorAll('.reveal').forEach(el => ro.observe(el));
 
-        <div class="flex flex-col sm:flex-row items-center gap-4 sm:gap-8 text-center">
-          <a href="tel:7097704579" class="text-green-300/80 hover:text-green-300 text-sm transition-colors duration-200 cursor-pointer">(709) 770-4579</a>
-          <a href="tel:7093303409" class="text-green-300/80 hover:text-green-300 text-sm transition-colors duration-200 cursor-pointer">(709) 330-3409</a>
-          <span class="text-green-300/40 text-sm">Paradise, NL</span>
-        </div>
+// ── Form ──
+document.getElementById('quote-form').addEventListener('submit', e => {
+  e.preventDefault();
+  const btn = document.getElementById('sbtn');
+  btn.disabled = true; btn.textContent = 'Sending...';
+  setTimeout(() => {
+    document.getElementById('quote-form').style.display = 'none';
+    document.getElementById('success-msg').style.display = 'block';
+  }, 900);
+});
 
-        <p class="text-green-300/40 text-xs text-center md:text-right">
-          &copy; 2025 Paradise Lawn Co.<br class="sm:hidden" /> All rights reserved.
-        </p>
-      </div>
-    </div>
-  </footer>
+// ── THREE.JS SCENE ──
+(() => {
+  const canvas = document.getElementById('hero-canvas');
+  const renderer = new THREE.WebGLRenderer({ canvas, antialias: true });
+  renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+  renderer.shadowMap.enabled = true;
+  renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+  renderer.toneMapping = THREE.ACESFilmicToneMapping;
+  renderer.toneMappingExposure = 1.1;
 
-  <!-- ═══════════════════════════════ SCRIPTS ═══════════════════════════════ -->
-  <script>
-    // Navbar scroll effect
-    const navbar = document.getElementById('navbar');
-    window.addEventListener('scroll', () => {
-      navbar.classList.toggle('scrolled', window.scrollY > 60);
-    }, { passive: true });
+  const scene = new THREE.Scene();
+  scene.background = new THREE.Color(0x1a3d2b);
+  scene.fog = new THREE.FogExp2(0x0d2619, 0.032);
 
-    // Mobile menu
-    const menuBtn = document.getElementById('menuBtn');
-    const mobileMenu = document.getElementById('mobileMenu');
-    menuBtn.addEventListener('click', () => {
-      const isOpen = !mobileMenu.classList.contains('hidden');
-      mobileMenu.classList.toggle('hidden', isOpen);
-      menuBtn.setAttribute('aria-expanded', String(!isOpen));
+  const camera = new THREE.PerspectiveCamera(52, 1, 0.1, 120);
+  camera.position.set(0, 10, 16);
+  camera.lookAt(0, 1, 0);
+
+  // Lights
+  scene.add(new THREE.AmbientLight(0x4a7a4a, 1.2));
+  const sun = new THREE.DirectionalLight(0xffe0a0, 2.2);
+  sun.position.set(10, 18, 8);
+  sun.castShadow = true;
+  sun.shadow.mapSize.set(2048, 2048);
+  sun.shadow.camera.near = 1; sun.shadow.camera.far = 80;
+  sun.shadow.camera.left = -18; sun.shadow.camera.right = 18;
+  sun.shadow.camera.top = 18; sun.shadow.camera.bottom = -18;
+  sun.shadow.bias = -0.001;
+  scene.add(sun);
+  const fill = new THREE.DirectionalLight(0x6090ff, 0.5);
+  fill.position.set(-8, 6, -6);
+  scene.add(fill);
+  const rim = new THREE.DirectionalLight(0x80ff80, 0.3);
+  rim.position.set(0, 4, -12);
+  scene.add(rim);
+
+  // Ground — striped mowing pattern
+  const groundGeo = new THREE.PlaneGeometry(60, 60);
+  const groundMat = new THREE.MeshStandardMaterial({ color: 0x2a7a2a, roughness: 1 });
+  const ground = new THREE.Mesh(groundGeo, groundMat);
+  ground.rotation.x = -Math.PI / 2;
+  ground.receiveShadow = true;
+  scene.add(ground);
+
+  // Mowing stripes
+  for (let i = -14; i <= 14; i++) {
+    const sg = new THREE.PlaneGeometry(28, 1.1);
+    const sm = new THREE.MeshStandardMaterial({ color: i % 2 === 0 ? 0x3aaa3a : 0x2a8a2a, roughness: 1 });
+    const s = new THREE.Mesh(sg, sm);
+    s.rotation.x = -Math.PI / 2;
+    s.position.set(0, 0.005, i * 1.1);
+    scene.add(s);
+  }
+
+  // Trees
+  const mkTree = (x, z, scale = 1) => {
+    const g = new THREE.Group();
+    const trunkM = new THREE.MeshStandardMaterial({ color: 0x5c3317, roughness: 1 });
+    const foliageM = new THREE.MeshStandardMaterial({ color: 0x1a5c1a, roughness: 1 });
+    const trunk = new THREE.Mesh(new THREE.CylinderGeometry(.12*scale, .18*scale, 1.4*scale, 8), trunkM);
+    trunk.position.y = .7*scale; trunk.castShadow = true; g.add(trunk);
+    [[1.4,2.8],[1.1,3.8],[.8,4.6]].forEach(([r,y]) => {
+      const c = new THREE.Mesh(new THREE.ConeGeometry(r*scale, 2.2*scale, 8), foliageM);
+      c.position.y = y*scale; c.castShadow = true; g.add(c);
     });
-    function closeMobileMenu() {
-      mobileMenu.classList.add('hidden');
-      menuBtn.setAttribute('aria-expanded', 'false');
+    g.position.set(x, 0, z);
+    scene.add(g);
+  };
+  [[-14,0,-11],[13,0,-10],[-11,0,8],[12,0,6],[-15,0,-4],[14,0,-3],[-9,0,-16],[10,0,-14]].forEach(([x,y,z]) => mkTree(x,z,0.9+Math.random()*.3));
+
+  // Fence
+  const fenceM = new THREE.MeshStandardMaterial({ color: 0xd4a96a, roughness: .8 });
+  for (let i = -8; i <= 8; i += 1.8) {
+    const post = new THREE.Mesh(new THREE.BoxGeometry(.1,.95,.1), fenceM);
+    post.position.set(i, .475, -10); post.castShadow = true; scene.add(post);
+  }
+  const rail1 = new THREE.Mesh(new THREE.BoxGeometry(16,.07,.07), fenceM);
+  rail1.position.set(0, .75, -10); scene.add(rail1);
+  const rail2 = new THREE.Mesh(new THREE.BoxGeometry(16,.07,.07), fenceM);
+  rail2.position.set(0, .38, -10); scene.add(rail2);
+
+  // ── Lawnmower ──
+  const mower = new THREE.Group();
+  const red = new THREE.MeshStandardMaterial({ color: 0xcc1f00, roughness: .6, metalness: .1 });
+  const darkRed = new THREE.MeshStandardMaterial({ color: 0x991500, roughness: .7 });
+  const darkGrey = new THREE.MeshStandardMaterial({ color: 0x2a2a2a, roughness: .8 });
+  const midGrey = new THREE.MeshStandardMaterial({ color: 0x555555, roughness: .6, metalness: .3 });
+  const lightGrey = new THREE.MeshStandardMaterial({ color: 0xaaaaaa, roughness: .4, metalness: .5 });
+  const black = new THREE.MeshStandardMaterial({ color: 0x111111, roughness: .9 });
+
+  // Deck
+  const deck = new THREE.Mesh(new THREE.BoxGeometry(1.5, .3, 1.1), red);
+  deck.position.y = .28; deck.castShadow = true; mower.add(deck);
+  const deckBottom = new THREE.Mesh(new THREE.BoxGeometry(1.52,.06,1.12), darkRed);
+  deckBottom.position.y = .12; mower.add(deckBottom);
+  // Deck bevel
+  const bevelGeo = new THREE.BoxGeometry(1.56,.04,1.16);
+  const bevel = new THREE.Mesh(bevelGeo, darkRed);
+  bevel.position.y = .44; mower.add(bevel);
+
+  // Engine
+  const eng = new THREE.Mesh(new THREE.BoxGeometry(.6,.48,.6), midGrey);
+  eng.position.set(0,.7,-.08); eng.castShadow = true; mower.add(eng);
+  const engTop = new THREE.Mesh(new THREE.CylinderGeometry(.09,.11,.22,12), midGrey);
+  engTop.position.set(0,1.02,-.08); mower.add(engTop);
+  const sparkPlug = new THREE.Mesh(new THREE.CylinderGeometry(.025,.025,.15,8), lightGrey);
+  sparkPlug.position.set(.2,.95,.1); mower.add(sparkPlug);
+  const exhaust = new THREE.Mesh(new THREE.CylinderGeometry(.028,.028,.28,8), midGrey);
+  exhaust.position.set(.26,.98,-.08); exhaust.rotation.z = .25; mower.add(exhaust);
+
+  // Wheels (4)
+  const wheels = [];
+  [[-.68,.22,.42],[.68,.22,.42],[-.68,.22,-.42],[.68,.22,-.42]].forEach(([x,y,z]) => {
+    const wg = new THREE.Group();
+    const rim = new THREE.Mesh(new THREE.CylinderGeometry(.22,.22,.13,24), black);
+    rim.rotation.z = Math.PI/2; rim.castShadow = true; wg.add(rim);
+    const hub = new THREE.Mesh(new THREE.CylinderGeometry(.09,.09,.15,12), midGrey);
+    hub.rotation.z = Math.PI/2; wg.add(hub);
+    const spoke1 = new THREE.Mesh(new THREE.BoxGeometry(.18,.02,.02), darkGrey);
+    wg.add(spoke1);
+    const spoke2 = new THREE.Mesh(new THREE.BoxGeometry(.02,.02,.18), darkGrey);
+    wg.add(spoke2);
+    wg.position.set(x,y,z); mower.add(wg); wheels.push(wg);
+  });
+
+  // Handle
+  const handleM = new THREE.MeshStandardMaterial({ color: 0x1a1a1a, roughness: .9 });
+  const mkPipe = (x, y, z, rx, ry, rz, len) => {
+    const m = new THREE.Mesh(new THREE.CylinderGeometry(.032,.032,len,10), handleM);
+    m.position.set(x,y,z); m.rotation.set(rx,ry,rz); m.castShadow = true; mower.add(m);
+  };
+  mkPipe(-.3,.88,.56, -.38,0,0, 1.35);
+  mkPipe(.3,.88,.56, -.38,0,0, 1.35);
+  mkPipe(0,1.3,1.02, 0,0,Math.PI/2, .68);
+  // Grip covers
+  const gripM = new THREE.MeshStandardMaterial({ color: 0x333333, roughness: .95 });
+  [-.22,.22].forEach(x => {
+    const g = new THREE.Mesh(new THREE.CylinderGeometry(.04,.04,.18,10), gripM);
+    g.position.set(x,1.3,1.02); g.rotation.z = Math.PI/2; mower.add(g);
+  });
+
+  // Blade (spins)
+  const bladeGroup = new THREE.Group();
+  bladeGroup.position.y = .06;
+  const bladeM = new THREE.MeshStandardMaterial({ color: 0xcccccc, roughness: .3, metalness: .7 });
+  [0, Math.PI/2].forEach(rot => {
+    const b = new THREE.Mesh(new THREE.BoxGeometry(1.3,.025,.1), bladeM);
+    b.rotation.y = rot; bladeGroup.add(b);
+  });
+  mower.add(bladeGroup);
+
+  // Chute
+  const chute = new THREE.Mesh(new THREE.BoxGeometry(.28,.18,.1), darkRed);
+  chute.position.set(.77,.18,.05); mower.add(chute);
+
+  scene.add(mower);
+
+  // ── Particles ──
+  const PCOUNT = 180;
+  const pPositions = new Float32Array(PCOUNT * 3);
+  const pVels = Array.from({length:PCOUNT}, () => ({x:0,y:0,z:0,life:0,max:1}));
+  for (let i = 0; i < PCOUNT; i++) pPositions[i*3+1] = -20;
+  const pGeo = new THREE.BufferGeometry();
+  pGeo.setAttribute('position', new THREE.BufferAttribute(pPositions, 3));
+  const pMat = new THREE.PointsMaterial({ color: 0x6dd96d, size: .14, transparent: true, opacity: .85, sizeAttenuation: true });
+  const pts = new THREE.Points(pGeo, pMat);
+  scene.add(pts);
+  let pIdx = 0;
+  function spawnParticles(mx, mz, angle) {
+    for (let i = 0; i < 4; i++) {
+      const idx = pIdx % PCOUNT;
+      pPositions[idx*3] = mx + (Math.random()-.5)*.3;
+      pPositions[idx*3+1] = .3 + Math.random()*.2;
+      pPositions[idx*3+2] = mz + (Math.random()-.5)*.3;
+      const sp = .035 + Math.random()*.055;
+      const spread = (Math.random()-.5)*2;
+      pVels[idx] = { x: Math.cos(angle+Math.PI/2+spread)*sp, y: .04+Math.random()*.07, z: Math.sin(angle+Math.PI/2+spread)*sp, life:1, max: 35+Math.random()*25 };
+      pIdx++;
     }
+  }
 
-    // Scroll reveal
-    const revealEls = document.querySelectorAll('.reveal');
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-          observer.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
-    revealEls.forEach((el) => observer.observe(el));
+  // Resize
+  function resize() {
+    const w = canvas.parentElement.clientWidth, h = canvas.parentElement.clientHeight;
+    renderer.setSize(w, h, false);
+    camera.aspect = w / h;
+    camera.updateProjectionMatrix();
+  }
+  resize();
+  window.addEventListener('resize', resize, {passive:true});
 
-    // Quote form — show success state (no backend, visual only)
-    const form = document.getElementById('quoteForm');
-    const successMsg = document.getElementById('successMsg');
-    const submitBtn = document.getElementById('submitBtn');
-    form.addEventListener('submit', (e) => {
-      e.preventDefault();
-      submitBtn.disabled = true;
-      submitBtn.textContent = 'Sending...';
-      setTimeout(() => {
-        form.classList.add('hidden');
-        successMsg.classList.remove('hidden');
-      }, 800);
-    });
-  </script>
+  // Animate
+  let angle = 0, frame = 0;
+  const RADIUS = 5;
+  (function animate() {
+    requestAnimationFrame(animate);
+    frame++;
+    angle += 0.011;
 
+    const mx = Math.cos(angle) * RADIUS;
+    const mz = Math.sin(angle) * RADIUS;
+    mower.position.set(mx, 0, mz);
+    mower.rotation.y = -angle - Math.PI/2;
+
+    bladeGroup.rotation.y += .5;
+    wheels.forEach(w => { w.rotation.x += .2; });
+
+    if (frame % 2 === 0) spawnParticles(mx, mz, angle);
+
+    const pa = pGeo.attributes.position;
+    for (let i = 0; i < PCOUNT; i++) {
+      const v = pVels[i];
+      if (v.life > 0) {
+        pa.array[i*3] += v.x;
+        pa.array[i*3+1] += v.y;
+        pa.array[i*3+2] += v.z;
+        v.y -= .0025;
+        v.life -= 1/v.max;
+        if (v.life <= 0 || pa.array[i*3+1] < 0) { pa.array[i*3+1] = -20; v.life = 0; }
+      }
+    }
+    pa.needsUpdate = true;
+
+    // Gentle camera sway
+    camera.position.x = Math.sin(frame * .0025) * 2.5;
+    camera.position.y = 10 + Math.sin(frame * .004) * .8;
+    camera.lookAt(0, 1.2, 0);
+
+    renderer.render(scene, camera);
+  })();
+})();
+</script>
 </body>
 </html>
