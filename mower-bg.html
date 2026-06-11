@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Mower BG</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body { width: 100%; height: 100%; overflow: hidden; background: #6abaff; }
+    canvas { display: block; width: 100%; height: 100%; }
+  </style>
+</head>
+<body>
+<canvas id="c"></canvas>
+<script>
+const canvas = document.getElementById('c');
+const renderer = new THREE.WebGLRenderer({ canvas, antialias: true });
+renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+renderer.shadowMap.enabled = true;
+renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+renderer.toneMapping = THREE.ACESFilmicToneMapping;
+renderer.toneMappingExposure = 1.25;
+
+const scene = new THREE.Scene();
+scene.background = new THREE.Color(0x6abaff);
+scene.fog = new THREE.Fog(0x6abaff, 28, 60);
+
+const camera = new THREE.PerspectiveCamera(62, 1, 0.1, 120);
+camera.position.set(8, 2.5, 8);
+
+// ── Lighting ──
+scene.add(new THREE.AmbientLight(0x88c888, 0.9));
+
+const sun = new THREE.DirectionalLight(0xfff0a0, 3.5);
+sun.position.set(14, 18, 6);
+sun.castShadow = true;
+sun.shadow.mapSize.set(2048, 2048);
+sun.shadow.camera.near = 0.5; sun.shadow.camera.far = 80;
+sun.shadow.camera.left = -20; sun.shadow.camera.right = 20;
+sun.shadow.camera.top = 20; sun.shadow.camera.bottom = -20;
+sun.shadow.bias = -0.0015; sun.shadow.radius = 3;
+scene.add(sun);
+
+const skyFill = new THREE.DirectionalLight(0x80b4ff, 0.7);
+skyFill.position.set(-6, 12, -4);
+scene.add(skyFill);
+
+const rimLight = new THREE.DirectionalLight(0xffffff, 1.1);
+rimLight.position.set(-10, 4, -8);
+scene.add(rimLight);
+
+const groundBounce = new THREE.DirectionalLight(0x44aa44, 0.4);
+groundBounce.position.set(0, -1, 0);
+scene.add(groundBounce);
+
+// ── Ground ──
+const ground = new THREE.Mesh(
+  new THREE.PlaneGeometry(80, 80),
+  new THREE.MeshStandardMaterial({ color: 0x339933, roughness: 1 })
+);
+ground.rotation.x = -Math.PI / 2;
+ground.receiveShadow = true;
+scene.add(ground);
+
+for (let i = -18; i <= 18; i++) {
+  const s = new THREE.Mesh(
+    new THREE.PlaneGeometry(36, 1.08),
+    new THREE.MeshStandardMaterial({ color: i % 2 === 0 ? 0x44bb44 : 0x2d9e2d, roughness: 1 })
+  );
+  s.rotation.x = -Math.PI / 2;
+  s.position.set(0, 0.005, i * 1.08);
+  s.receiveShadow = true;
+  scene.add(s);
+}
+
+// ── Trees ──
+[[-15,0,-12],[14,0,-11],[-12,0,9],[14,0,8],[-17,0,-3],[16,0,-4],[-10,0,-17],[12,0,-16]].forEach(([x,,z]) => {
+  const sc = 0.9 + Math.random() * 0.35;
+  const trunkM = new THREE.MeshStandardMaterial({ color: 0x5c3317, roughness: 1 });
+  const trunk = new THREE.Mesh(new THREE.CylinderGeometry(0.13*sc, 0.19*sc, 1.5*sc, 8), trunkM);
+  trunk.position.set(x, 0.75*sc, z); trunk.castShadow = true; scene.add(trunk);
+  const darkn = Math.floor(Math.random() * 0x0a0a0a);
+  const leafM = new THREE.MeshStandardMaterial({ color: 0x1e6b1e - darkn, roughness: 1 });
+  [[1.35,2.8],[1.05,3.9],[0.75,4.7]].forEach(([r,hy]) => {
+    const c = new THREE.Mesh(new THREE.ConeGeometry(r*sc, 2.2*sc, 8), leafM);
+    c.position.set(x, hy*sc, z); c.castShadow = true; scene.add(c);
+  });
+});
+
+// ── Fence ──
+const fenceM = new THREE.MeshStandardMaterial({ color: 0xd4a76a, roughness: 0.85 });
+for (let i = -10; i <= 10; i += 1.8) {
+  const post = new THREE.Mesh(new THREE.BoxGeometry(0.1, 1.0, 0.1), fenceM);
+  post.position.set(i, 0.5, -12); post.castShadow = true; scene.add(post);
+}
+[0.75, 0.37].forEach(y => {
+  const rail = new THREE.Mesh(new THREE.BoxGeometry(20, 0.08, 0.08), fenceM);
+  rail.position.set(0, y, -12); scene.add(rail);
+});
+
+// ── Mower ──
+const mower = new THREE.Group();
+const redM      = new THREE.MeshStandardMaterial({ color: 0xcc2000, roughness: 0.5, metalness: 0.15 });
+const darkRedM  = new THREE.MeshStandardMaterial({ color: 0x991400, roughness: 0.7, metalness: 0.05 });
+const blackM    = new THREE.MeshStandardMaterial({ color: 0x111111, roughness: 0.9, metalness: 0.1 });
+const darkGreyM = new THREE.MeshStandardMaterial({ color: 0x282828, roughness: 0.8, metalness: 0.25 });
+const midGreyM  = new THREE.MeshStandardMaterial({ color: 0x545454, roughness: 0.6, metalness: 0.4 });
+const lightGreyM= new THREE.MeshStandardMaterial({ color: 0x999999, roughness: 0.4, metalness: 0.55 });
+const silverM   = new THREE.MeshStandardMaterial({ color: 0xcccccc, roughness: 0.3, metalness: 0.8 });
+const rubberM   = new THREE.MeshStandardMaterial({ color: 0x191919, roughness: 0.95, metalness: 0 });
+const darkOliveM= new THREE.MeshStandardMaterial({ color: 0x3a3a22, roughness: 0.9, metalness: 0 });
+
+// Deck
+const deckMain = new THREE.Mesh(new THREE.BoxGeometry(1.58, 0.3, 1.2), redM);
+deckMain.position.y = 0.29; deckMain.castShadow = true; mower.add(deckMain);
+const deckSkirt = new THREE.Mesh(new THREE.BoxGeometry(1.62, 0.09, 1.24), darkRedM);
+deckSkirt.position.y = 0.115; mower.add(deckSkirt);
+const deckTopPanel = new THREE.Mesh(new THREE.BoxGeometry(1.56, 0.04, 1.18), darkRedM);
+deckTopPanel.position.y = 0.45; mower.add(deckTopPanel);
+[-0.8, 0.8].forEach(x => {
+  const sk = new THREE.Mesh(new THREE.BoxGeometry(0.04, 0.26, 1.08), darkRedM);
+  sk.position.set(x, 0.13, 0); mower.add(sk);
+});
+
+// Engine
+const engBody = new THREE.Mesh(new THREE.BoxGeometry(0.68, 0.54, 0.68), midGreyM);
+engBody.position.set(0, 0.76, -0.1); engBody.castShadow = true; mower.add(engBody);
+const engHead = new THREE.Mesh(new THREE.BoxGeometry(0.7, 0.13, 0.7), darkGreyM);
+engHead.position.set(0, 1.04, -0.1); mower.add(engHead);
+const airFilter = new THREE.Mesh(new THREE.CylinderGeometry(0.135, 0.155, 0.2, 14), blackM);
+airFilter.position.set(0, 1.22, -0.1); airFilter.castShadow = true; mower.add(airFilter);
+const airLid = new THREE.Mesh(new THREE.CylinderGeometry(0.135, 0.135, 0.04, 14), midGreyM);
+airLid.position.set(0, 1.33, -0.1); mower.add(airLid);
+const fuelCap = new THREE.Mesh(new THREE.CylinderGeometry(0.065, 0.065, 0.055, 10), darkGreyM);
+fuelCap.position.set(0.24, 0.47, -0.3); mower.add(fuelCap);
+const exhPipe = new THREE.Mesh(new THREE.CylinderGeometry(0.036, 0.042, 0.35, 10), midGreyM);
+exhPipe.position.set(0.3, 0.99, -0.1); exhPipe.rotation.z = 0.3; exhPipe.castShadow = true; mower.add(exhPipe);
+const exhTip = new THREE.Mesh(new THREE.CylinderGeometry(0.052, 0.036, 0.07, 10), darkGreyM);
+exhTip.position.set(0.39, 1.14, -0.1); exhTip.rotation.z = 0.3; mower.add(exhTip);
+const sparkPlug = new THREE.Mesh(new THREE.CylinderGeometry(0.022, 0.022, 0.2, 8), lightGreyM);
+sparkPlug.position.set(0.24, 0.93, 0.22); sparkPlug.rotation.x = 0.4; mower.add(sparkPlug);
+
+// Grass catcher bag
+const bagBody = new THREE.Mesh(new THREE.BoxGeometry(1.48, 0.74, 0.6), darkOliveM);
+bagBody.position.set(0, 0.57, 0.73); bagBody.castShadow = true; mower.add(bagBody);
+const bagFace = new THREE.Mesh(new THREE.BoxGeometry(1.48, 0.74, 0.04),
+  new THREE.MeshStandardMaterial({ color: 0x252514, roughness: 0.9 }));
+bagFace.position.set(0, 0.57, 0.44); mower.add(bagFace);
+const bagTop = new THREE.Mesh(new THREE.BoxGeometry(0.62, 0.065, 0.52), darkGreyM);
+bagTop.position.set(0, 0.97, 0.73); mower.add(bagTop);
+const meshLineMat = new THREE.MeshStandardMaterial({ color: 0x1e1e10, roughness: 1 });
+for (let i = -0.64; i <= 0.64; i += 0.22) {
+  const vl = new THREE.Mesh(new THREE.BoxGeometry(0.025, 0.72, 0.58), meshLineMat);
+  vl.position.set(i, 0.57, 0.73); mower.add(vl);
+}
+for (let y = 0.2; y <= 0.92; y += 0.14) {
+  const hl = new THREE.Mesh(new THREE.BoxGeometry(1.46, 0.022, 0.58), meshLineMat);
+  hl.position.set(0, y, 0.73); mower.add(hl);
+}
+
+// Wheels
+const wheels = [];
+[
+  { x:-0.73, y:0.23, z: 0.5,  r:0.23 },
+  { x: 0.73, y:0.23, z: 0.5,  r:0.23 },
+  { x:-0.73, y:0.27, z:-0.46, r:0.27 },
+  { x: 0.73, y:0.27, z:-0.46, r:0.27 },
+].forEach(({ x, y, z, r }) => {
+  const wg = new THREE.Group();
+  const tire = new THREE.Mesh(new THREE.CylinderGeometry(r, r, 0.14, 28), rubberM);
+  tire.rotation.z = Math.PI/2; tire.castShadow = true; wg.add(tire);
+  for (let i = 0; i < 14; i++) {
+    const ta = (i/14)*Math.PI*2;
+    const tread = new THREE.Mesh(new THREE.BoxGeometry(0.16, 0.035, 0.028), darkGreyM);
+    tread.position.set(0, Math.cos(ta)*(r-0.008), Math.sin(ta)*(r-0.008));
+    tread.rotation.x = ta; wg.add(tread);
+  }
+  const rim2 = new THREE.Mesh(new THREE.CylinderGeometry(r*0.56, r*0.56, 0.16, 20), lightGreyM);
+  rim2.rotation.z = Math.PI/2; wg.add(rim2);
+  const hub = new THREE.Mesh(new THREE.CylinderGeometry(r*0.27, r*0.27, 0.18, 10), midGreyM);
+  hub.rotation.z = Math.PI/2; wg.add(hub);
+  for (let i = 0; i < 5; i++) {
+    const spoke = new THREE.Mesh(new THREE.BoxGeometry(r*0.72, 0.03, 0.03), darkGreyM);
+    spoke.rotation.x = (i/5)*Math.PI*2; wg.add(spoke);
+  }
+  wg.position.set(x, y, z); mower.add(wg); wheels.push(wg);
+});
+
+// Handle
+const handleM = new THREE.MeshStandardMaterial({ color: 0x202020, roughness: 0.85, metalness: 0.15 });
+const gripM   = new THREE.MeshStandardMaterial({ color: 0x2e2e2e, roughness: 0.97 });
+[-0.32, 0.32].forEach(x => {
+  const lo = new THREE.Mesh(new THREE.CylinderGeometry(0.029, 0.033, 0.75, 10), handleM);
+  lo.position.set(x, 0.63, 0.66); lo.rotation.x = -0.26; lo.castShadow = true; mower.add(lo);
+  const up = new THREE.Mesh(new THREE.CylinderGeometry(0.027, 0.029, 0.75, 10), handleM);
+  up.position.set(x, 1.14, 1.07); up.rotation.x = -0.4; up.castShadow = true; mower.add(up);
+});
+const lBar = new THREE.Mesh(new THREE.CylinderGeometry(0.028, 0.028, 0.72, 10), handleM);
+lBar.position.set(0, 0.39, 0.51); lBar.rotation.z = Math.PI/2; mower.add(lBar);
+const uBar = new THREE.Mesh(new THREE.CylinderGeometry(0.028, 0.028, 0.72, 10), handleM);
+uBar.position.set(0, 1.4, 1.34); uBar.rotation.z = Math.PI/2; mower.add(uBar);
+[-0.25, 0.25].forEach(x => {
+  const grip = new THREE.Mesh(new THREE.CylinderGeometry(0.04, 0.04, 0.21, 12), gripM);
+  grip.position.set(x, 1.4, 1.34); grip.rotation.z = Math.PI/2; mower.add(grip);
+});
+const bail = new THREE.Mesh(new THREE.CylinderGeometry(0.016, 0.016, 0.7, 8), handleM);
+bail.position.set(0, 1.33, 1.22); bail.rotation.z = Math.PI/2; mower.add(bail);
+const cable = new THREE.Mesh(new THREE.CylinderGeometry(0.008, 0.008, 1.12, 6), blackM);
+cable.position.set(0.27, 0.92, 0.97); cable.rotation.x = -0.36; mower.add(cable);
+
+// Blade
+const bladeGrp = new THREE.Group();
+bladeGrp.position.y = 0.07;
+[0, Math.PI/2].forEach(rot => {
+  const b = new THREE.Mesh(new THREE.BoxGeometry(1.42, 0.025, 0.11), silverM);
+  b.rotation.y = rot; bladeGrp.add(b);
+});
+const boltCentre = new THREE.Mesh(new THREE.CylinderGeometry(0.065, 0.065, 0.07, 8), lightGreyM);
+boltCentre.position.y = 0.025; bladeGrp.add(boltCentre);
+mower.add(bladeGrp);
+
+const chute = new THREE.Mesh(new THREE.BoxGeometry(0.3, 0.22, 0.13), darkRedM);
+chute.position.set(0.82, 0.19, 0.06); mower.add(chute);
+scene.add(mower);
+
+// ── Particles ──
+const PCOUNT = 220;
+const pPos = new Float32Array(PCOUNT * 3);
+for (let i = 0; i < PCOUNT; i++) pPos[i*3+1] = -20;
+const pVels = Array.from({ length: PCOUNT }, () => ({ x:0,y:0,z:0,life:0,max:1 }));
+const pGeo = new THREE.BufferGeometry();
+pGeo.setAttribute('position', new THREE.BufferAttribute(pPos, 3));
+const pMat = new THREE.PointsMaterial({ color: 0x7aee5a, size: 0.13, transparent: true, opacity: 0.88, sizeAttenuation: true });
+scene.add(new THREE.Points(pGeo, pMat));
+let pIdx = 0;
+
+function spawnParticles(mx, mz, mAngle) {
+  for (let i = 0; i < 5; i++) {
+    const idx = pIdx % PCOUNT;
+    pPos[idx*3]   = mx + (Math.random()-0.5)*0.35;
+    pPos[idx*3+1] = 0.22 + Math.random()*0.32;
+    pPos[idx*3+2] = mz + (Math.random()-0.5)*0.35;
+    const sp = 0.038 + Math.random()*0.065;
+    const spread = (Math.random()-0.5)*2.4;
+    pVels[idx] = {
+      x: Math.cos(mAngle+Math.PI/2+spread)*sp,
+      y: 0.045 + Math.random()*0.08,
+      z: Math.sin(mAngle+Math.PI/2+spread)*sp,
+      life: 1, max: 28 + Math.random()*22
+    };
+    pIdx++;
+  }
+}
+
+// ── Resize ──
+function resize() {
+  renderer.setSize(window.innerWidth, window.innerHeight, false);
+  camera.aspect = window.innerWidth / window.innerHeight;
+  camera.updateProjectionMatrix();
+}
+resize();
+window.addEventListener('resize', resize, { passive: true });
+
+// ── Action camera ──
+let mowerAngle = 0, camOrbitOffset = Math.PI * 0.65, frame = 0;
+const camPos = new THREE.Vector3(8, 2.5, 8);
+const camGoal = new THREE.Vector3();
+const MOWER_R = 5;
+
+(function animate() {
+  requestAnimationFrame(animate);
+  frame++;
+  mowerAngle += 0.012;
+
+  const mx = Math.cos(mowerAngle) * MOWER_R;
+  const mz = Math.sin(mowerAngle) * MOWER_R;
+  mower.position.set(mx, 0, mz);
+  mower.rotation.y = -mowerAngle - Math.PI/2;
+
+  bladeGrp.rotation.y += 0.55;
+  wheels.forEach(w => { w.rotation.x += 0.19; });
+
+  if (frame % 2 === 0) spawnParticles(mx, mz, mowerAngle);
+
+  const pa = pGeo.attributes.position;
+  for (let i = 0; i < PCOUNT; i++) {
+    const v = pVels[i];
+    if (v.life > 0) {
+      pa.array[i*3]   += v.x;
+      pa.array[i*3+1] += v.y;
+      pa.array[i*3+2] += v.z;
+      v.y -= 0.003;
+      v.life -= 1/v.max;
+      if (v.life <= 0 || pa.array[i*3+1] < 0) { pa.array[i*3+1] = -20; v.life = 0; }
+    }
+  }
+  pa.needsUpdate = true;
+
+  camOrbitOffset += 0.008;
+  const camDist   = 4.6 + Math.sin(camOrbitOffset*0.4)*0.8;
+  const camHeight = 1.6 + Math.sin(camOrbitOffset*0.6)*0.9;
+  const camAngle  = mowerAngle + camOrbitOffset;
+  camGoal.set(mx + Math.cos(camAngle)*camDist, camHeight, mz + Math.sin(camAngle)*camDist);
+  camPos.lerp(camGoal, 0.055);
+
+  const shk = 0.012;
+  camera.position.set(
+    camPos.x + (Math.random()-0.5)*shk,
+    camPos.y + (Math.random()-0.5)*shk*0.4,
+    camPos.z + (Math.random()-0.5)*shk
+  );
+  camera.lookAt(mx, 0.65, mz);
+
+  renderer.render(scene, camera);
+})();
+</script>
+</body>
+</html>
