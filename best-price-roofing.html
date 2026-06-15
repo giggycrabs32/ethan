@@ -1,0 +1,421 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Best Price Roofing — St. John's, NL</title>
+<meta name="description" content="Best Price Roofing — professional roofing contractor serving St. John's and the Avalon Peninsula. 5.0 stars, 18 reviews. Open 24 hours." />
+<style>
+  :root {
+    --ink: #111;
+    --ink-2: #2a2a2a;
+    --muted: #6b6b6b;
+    --line: #e6e6e6;
+    --bg: #fafafa;
+    --paper: #ffffff;
+    --max: 1120px;
+  }
+  *, *::before, *::after { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    font-family: "Helvetica Neue", Helvetica, Arial, "Inter", system-ui, -apple-system, sans-serif;
+    color: var(--ink);
+    background: var(--paper);
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  a { color: var(--ink); text-decoration: none; border-bottom: 1px solid var(--ink); }
+  a:hover { opacity: .7; }
+  img { max-width: 100%; display: block; }
+  .wrap { max-width: var(--max); margin: 0 auto; padding: 0 24px; }
+
+  /* Header */
+  header {
+    border-bottom: 1px solid var(--line);
+    background: var(--paper);
+    position: sticky; top: 0; z-index: 10;
+  }
+  .nav {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 22px 0;
+  }
+  .brand {
+    font-weight: 700;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    font-size: 14px;
+    border: none;
+  }
+  .brand span { font-weight: 400; color: var(--muted); }
+  nav ul { display: flex; gap: 28px; list-style: none; margin: 0; padding: 0; }
+  nav a {
+    font-size: 13px;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    border: none;
+    color: var(--ink-2);
+  }
+  nav a:hover { color: #000; opacity: 1; border-bottom: 1px solid #000; }
+
+  /* Hero */
+  .hero {
+    border-bottom: 1px solid var(--line);
+    padding: 96px 0 88px;
+  }
+  .eyebrow {
+    font-size: 12px;
+    letter-spacing: .24em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 24px;
+  }
+  h1 {
+    font-family: Georgia, "Times New Roman", serif;
+    font-weight: 400;
+    font-size: clamp(40px, 6vw, 72px);
+    line-height: 1.05;
+    letter-spacing: -.01em;
+    margin: 0 0 24px;
+    max-width: 14ch;
+  }
+  .lede {
+    font-size: 18px;
+    color: var(--ink-2);
+    max-width: 60ch;
+    margin: 0 0 36px;
+  }
+  .actions { display: flex; gap: 14px; flex-wrap: wrap; }
+  .btn {
+    display: inline-block;
+    padding: 14px 22px;
+    border: 1px solid var(--ink);
+    font-size: 13px;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    background: var(--ink);
+    color: #fff;
+  }
+  .btn.ghost { background: transparent; color: var(--ink); }
+  .btn:hover { opacity: .85; }
+
+  /* Sections */
+  section { padding: 88px 0; border-bottom: 1px solid var(--line); }
+  .section-head {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 48px;
+    margin-bottom: 56px;
+  }
+  .section-head h2 {
+    font-family: Georgia, serif;
+    font-weight: 400;
+    font-size: 36px;
+    margin: 0;
+    letter-spacing: -.01em;
+  }
+  .section-head p { margin: 0; color: var(--muted); font-size: 16px; }
+  .label {
+    font-size: 11px;
+    letter-spacing: .22em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  /* Services */
+  .services {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--line);
+    border: 1px solid var(--line);
+  }
+  .service {
+    background: var(--paper);
+    padding: 36px 32px;
+  }
+  .service h3 {
+    font-family: Georgia, serif;
+    font-weight: 400;
+    font-size: 22px;
+    margin: 24px 0 12px;
+  }
+  .service p { color: var(--muted); margin: 0; font-size: 15px; }
+  .service .num {
+    font-size: 12px;
+    letter-spacing: .2em;
+    color: var(--muted);
+  }
+
+  /* Reviews */
+  .stars {
+    display: inline-flex; gap: 4px; align-items: center;
+    font-family: Georgia, serif; font-size: 22px;
+  }
+  .rating-row {
+    display: flex; align-items: baseline; gap: 16px;
+    margin-bottom: 8px;
+  }
+  .rating-row .score { font-family: Georgia, serif; font-size: 48px; }
+  .rating-row .count { color: var(--muted); font-size: 14px; letter-spacing: .08em; text-transform: uppercase; }
+
+  .reviews {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
+  }
+  .review {
+    border-top: 1px solid var(--ink);
+    padding-top: 24px;
+  }
+  .review .who {
+    font-weight: 600;
+    font-size: 14px;
+    letter-spacing: .04em;
+    margin-bottom: 4px;
+  }
+  .review .when {
+    font-size: 12px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: .12em;
+    margin-bottom: 16px;
+  }
+  .review p {
+    margin: 0;
+    font-size: 15px;
+    color: var(--ink-2);
+  }
+  .review .quote-stars {
+    font-family: Georgia, serif;
+    font-size: 16px;
+    letter-spacing: 2px;
+    margin-bottom: 12px;
+  }
+
+  /* About / Contact split */
+  .split {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 64px;
+    align-items: start;
+  }
+  .split h2 {
+    font-family: Georgia, serif;
+    font-weight: 400;
+    font-size: 36px;
+    margin: 0 0 20px;
+  }
+  .split p { color: var(--ink-2); font-size: 16px; }
+  .meta {
+    list-style: none; padding: 0; margin: 24px 0 0;
+    border-top: 1px solid var(--line);
+  }
+  .meta li {
+    display: grid;
+    grid-template-columns: 160px 1fr;
+    gap: 16px;
+    padding: 16px 0;
+    border-bottom: 1px solid var(--line);
+    font-size: 15px;
+  }
+  .meta li span:first-child {
+    font-size: 11px;
+    letter-spacing: .22em;
+    text-transform: uppercase;
+    color: var(--muted);
+    padding-top: 4px;
+  }
+
+  /* Footer */
+  footer {
+    padding: 48px 0;
+    color: var(--muted);
+    font-size: 13px;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  footer a { color: var(--muted); border-color: var(--muted); }
+
+  /* Responsive */
+  @media (max-width: 860px) {
+    nav ul { display: none; }
+    .section-head { grid-template-columns: 1fr; gap: 16px; margin-bottom: 40px; }
+    .services { grid-template-columns: 1fr; }
+    .reviews { grid-template-columns: 1fr; }
+    .split { grid-template-columns: 1fr; gap: 40px; }
+    .meta li { grid-template-columns: 1fr; gap: 4px; }
+    section { padding: 64px 0; }
+    .hero { padding: 64px 0; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <a class="brand" href="#top">Best Price Roofing <span>— St. John's</span></a>
+    <nav>
+      <ul>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#reviews">Reviews</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+
+  <section class="hero">
+    <div class="wrap">
+      <div class="eyebrow">Roofing Contractor — Newfoundland & Labrador</div>
+      <h1>Honest roofing. Done right. Done on time.</h1>
+      <p class="lede">Family-run roofing in Kilbride and across St. John's. Detailed quotes, clean crews, and shingles installed the way they should be — in a single day, when we say we'll be there.</p>
+      <div class="actions">
+        <a class="btn" href="#contact">Request a Quote</a>
+        <a class="btn ghost" href="#reviews">Read Reviews</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="services">
+    <div class="wrap">
+      <div class="section-head">
+        <div class="label">01 — Services</div>
+        <div>
+          <h2>What we do, and only what we do well.</h2>
+          <p>Residential roofing across the Avalon. Full tear-offs, new builds, repairs, and emergency leak response — all delivered with the same standard, every job.</p>
+        </div>
+      </div>
+      <div class="services">
+        <div class="service">
+          <div class="num">001</div>
+          <h3>Asphalt Shingle Roofing</h3>
+          <p>Full tear-offs and new installs. Shingle samples brought to your door so you can choose with confidence.</p>
+        </div>
+        <div class="service">
+          <div class="num">002</div>
+          <h3>Roof Repairs</h3>
+          <p>Leaks, damaged flashing, missing shingles. Fast assessments and honest recommendations — repair when it makes sense, replace when it doesn't.</p>
+        </div>
+        <div class="service">
+          <div class="num">003</div>
+          <h3>Emergency Response</h3>
+          <p>Open 24 hours. When water is coming through the ceiling, we show up. Same standard of work, no inflated pricing.</p>
+        </div>
+        <div class="service">
+          <div class="num">004</div>
+          <h3>Detailed Estimates</h3>
+          <p>Written quotes that break out materials, options, and labour. No surprises, no upsells, no guesswork.</p>
+        </div>
+        <div class="service">
+          <div class="num">005</div>
+          <h3>Single-Day Installs</h3>
+          <p>Most homes start at 8:00 AM and finish by 6:00 PM the same day. Crew shows up in numbers and the site is left clean.</p>
+        </div>
+        <div class="service">
+          <div class="num">006</div>
+          <h3>Workmanship Standards</h3>
+          <p>Proper underlayment, correct nailing, clean lines, careful flashing. Done the way it lasts.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="reviews">
+    <div class="wrap">
+      <div class="section-head">
+        <div class="label">02 — Reviews</div>
+        <div>
+          <h2>Eighteen reviews. Every one of them five stars.</h2>
+          <p>We let the work speak. Below are a few words from homeowners across St. John's who trusted Mike and the crew with their roof.</p>
+        </div>
+      </div>
+
+      <div class="rating-row">
+        <span class="score">5.0</span>
+        <span class="stars">★ ★ ★ ★ ★</span>
+        <span class="count">18 Google Reviews</span>
+      </div>
+
+      <div class="reviews" style="margin-top:48px;">
+        <article class="review">
+          <div class="quote-stars">★ ★ ★ ★ ★</div>
+          <div class="who">Jordan Barry</div>
+          <div class="when">3 months ago</div>
+          <p>"Best Price did a great job on my roof. Mike and his team were incredibly professional. Although it was peak season, Mike was reliable and quick to respond to any questions I had. He showed up when he said he would, and even took the time to drop off shingle samples. I can't recommend these guys enough."</p>
+        </article>
+        <article class="review">
+          <div class="quote-stars">★ ★ ★ ★ ★</div>
+          <div class="who">Ron Birmingham</div>
+          <div class="when">3 months ago</div>
+          <p>"Mike and his team did my roof shingles recently and I couldn't be happier with the job and the service. The quote was detailed right down to my shingle options. They showed up in numbers by 8:00 AM and were done by 6:00 PM as promised."</p>
+        </article>
+        <article class="review">
+          <div class="quote-stars">★ ★ ★ ★ ★</div>
+          <div class="who">Hubert Cantwell</div>
+          <div class="when">3 months ago</div>
+          <p>"Mike and his team are simply the best. Shortly after my father died my mom's roof started to leak badly and was doing damage to the kitchen. I called Mike and he immediately came to the rescue and redid the roof. Best Price Roofing — highly recommended."</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="about">
+    <div class="wrap split">
+      <div>
+        <div class="label" style="margin-bottom:20px;">03 — About</div>
+        <h2>Local. Reliable. Fair.</h2>
+        <p>Best Price Roofing is a St. John's roofing contractor built on the simple idea that homeowners deserve a straight quote, a crew that shows up, and a roof installed properly the first time.</p>
+        <p>Mike and the team have built a reputation across the Avalon for prompt communication, clean job sites, and shingles that lay flat and last. That's why every review on file is a five.</p>
+      </div>
+      <div>
+        <div class="label" style="margin-bottom:20px;">Highlights</div>
+        <ul class="meta">
+          <li><span>Rating</span><span>5.0 / 5.0 — 18 reviews</span></li>
+          <li><span>Hours</span><span>Open 24 hours</span></li>
+          <li><span>Service Area</span><span>St. John's, Kilbride, Avalon Peninsula</span></li>
+          <li><span>Specialty</span><span>Asphalt shingle roofing & repair</span></li>
+          <li><span>Quotes</span><span>Free, detailed, in writing</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="wrap split">
+      <div>
+        <div class="label" style="margin-bottom:20px;">04 — Contact</div>
+        <h2>Get a quote.</h2>
+        <p>Tell us about your roof. We'll come by, take measurements, walk you through your shingle options, and leave a written quote — no pressure, no obligation.</p>
+        <div class="actions" style="margin-top:24px;">
+          <a class="btn" href="#contact">Request a Quote</a>
+        </div>
+      </div>
+      <div>
+        <div class="label" style="margin-bottom:20px;">Find Us</div>
+        <ul class="meta">
+          <li><span>Address</span><span>Kilbride, NL A1G 1B9</span></li>
+          <li><span>Plus Code</span><span>F6WM+GJ St. John's, NL</span></li>
+          <li><span>Hours</span><span>24 / 7</span></li>
+          <li><span>Google</span><span><a href="#">View profile & reviews</a></span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="wrap">
+  <div>© <span id="y"></span> Best Price Roofing — Kilbride, NL</div>
+  <div>Roofing Contractor · St. John's, Newfoundland and Labrador</div>
+</footer>
+
+<script>document.getElementById('y').textContent = new Date().getFullYear();</script>
+
+</body>
+</html>
