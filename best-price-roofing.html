@@ -63,6 +63,40 @@
     border-bottom: 1px solid var(--line);
     padding: 96px 0 88px;
   }
+  .hero-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 56px;
+    align-items: center;
+  }
+  .hero-photo {
+    width: 100%;
+    aspect-ratio: 16 / 11;
+    object-fit: cover;
+    filter: grayscale(100%) contrast(1.02);
+    border: 1px solid var(--line);
+  }
+  @media (max-width: 860px) {
+    .hero-grid { grid-template-columns: 1fr; gap: 32px; }
+  }
+
+  .feature-photo {
+    width: 100%;
+    aspect-ratio: 3 / 2;
+    object-fit: cover;
+    filter: grayscale(100%) contrast(1.02);
+    border: 1px solid var(--line);
+    display: block;
+  }
+  .photo-caption {
+    font-size: 11px;
+    letter-spacing: .2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-top: 12px;
+  }
+  .photo-block { margin: 56px 0; }
+  .photo-block.wide .feature-photo { aspect-ratio: 21 / 9; }
   .eyebrow {
     font-size: 12px;
     letter-spacing: .24em;
@@ -271,13 +305,19 @@
 <main id="top">
 
   <section class="hero">
-    <div class="wrap">
-      <div class="eyebrow">Roofing Contractor — Newfoundland & Labrador</div>
-      <h1>Honest roofing. Done right. Done on time.</h1>
-      <p class="lede">Family-run roofing in Kilbride and across St. John's. Detailed quotes, clean crews, and shingles installed the way they should be — in a single day, when we say we'll be there.</p>
-      <div class="actions">
-        <a class="btn" href="#contact">Request a Quote</a>
-        <a class="btn ghost" href="#reviews">Read Reviews</a>
+    <div class="wrap hero-grid">
+      <div>
+        <div class="eyebrow">Roofing Contractor — Newfoundland & Labrador</div>
+        <h1>Honest roofing. Done right. Done on time.</h1>
+        <p class="lede">Family-run roofing in Kilbride and across St. John's. Detailed quotes, clean crews, and shingles installed the way they should be — in a single day, when we say we'll be there.</p>
+        <div class="actions">
+          <a class="btn" href="#contact">Request a Quote</a>
+          <a class="btn ghost" href="#reviews">Read Reviews</a>
+        </div>
+      </div>
+      <div>
+        <img class="hero-photo" src="https://d8j0ntlcm91z4.cloudfront.net/user_3EzUgW8S7w38RCZcbjVMlR872dl/hf_20260615_011513_3cb4f8df-d9de-4761-835b-6000054be4e5.png" alt="A typical home in St. John's, Newfoundland after a fresh shingle install — overcast sky, light fog." />
+        <div class="photo-caption">Kilbride · Recent install · Overcast morning</div>
       </div>
     </div>
   </section>
@@ -290,6 +330,10 @@
           <h2>What we do, and only what we do well.</h2>
           <p>Residential roofing across the Avalon. Full tear-offs, new builds, repairs, and emergency leak response — all delivered with the same standard, every job.</p>
         </div>
+      </div>
+      <div class="photo-block wide">
+        <img class="feature-photo" src="https://d8j0ntlcm91z4.cloudfront.net/user_3EzUgW8S7w38RCZcbjVMlR872dl/hf_20260615_011514_8600eeca-e84a-4c62-9dc6-209546212bc0.png" alt="The Best Price Roofing crew working on a roof in St. John's on a damp, overcast day." />
+        <div class="photo-caption">On site, 8:00 AM · Light drizzle, low fog over the Avalon</div>
       </div>
       <div class="services">
         <div class="service">
@@ -361,6 +405,15 @@
           <div class="when">3 months ago</div>
           <p>"Mike and his team are simply the best. Shortly after my father died my mom's roof started to leak badly and was doing damage to the kitchen. I called Mike and he immediately came to the rescue and redid the roof. Best Price Roofing — highly recommended."</p>
         </article>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="photo-block" style="margin:0;">
+        <img class="feature-photo" src="https://d8j0ntlcm91z4.cloudfront.net/user_3EzUgW8S7w38RCZcbjVMlR872dl/hf_20260615_011515_dce946fc-5a9e-427a-b233-40babc3d4f9d.png" alt="Close-up of newly installed architectural shingles, damp from morning rain." />
+        <div class="photo-caption">Architectural shingles · Clean lines, proper nailing</div>
       </div>
     </div>
   </section>
