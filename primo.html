@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Primo Roofing — Paradise, NL | Terry Power</title>
+  <meta name="description" content="Primo Roofing in Paradise, NL. Professional shingling, re-roofs, and repairs by Terry Power and crew. Fast quotes, quality workmanship. Call (709) 315-3227."/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration:.01ms!important; transition-duration:.01ms!important; } }
+
+    :root {
+      --red: #dc2626;
+      --red-light: #ef4444;
+      --red-dark: #450a0a;
+      --amber: #f59e0b;
+      --ink: #0a0a0a;
+      --char: #131313;
+      --char-2: #1a1a1a;
+      --card-bg: rgba(255,255,255,0.04);
+      --card-border: rgba(255,255,255,0.08);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: var(--ink);
+      color: #fff;
+      overflow-x: hidden;
+    }
+
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: #0a0a0a; }
+    ::-webkit-scrollbar-thumb { background: var(--red); border-radius: 2px; }
+
+    /* ── Navbar ── */
+    #nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      padding: 20px 40px;
+      display: flex; align-items: center; justify-content: space-between;
+      transition: background .3s, backdrop-filter .3s, padding .3s;
+    }
+    #nav.solid {
+      background: rgba(10,10,10,.92);
+      backdrop-filter: blur(20px);
+      padding: 14px 40px;
+      border-bottom: 1px solid rgba(220,38,38,.15);
+    }
+    .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+    .logo-mark {
+      width: 38px; height: 38px; background: var(--red); border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 0 20px rgba(220,38,38,.45);
+    }
+    .logo-mark svg { width: 22px; height: 22px; fill: #fff; }
+    .logo-text { line-height: 1; }
+    .logo-text strong { display: block; font-size: 17px; font-weight: 800; color: #fff; letter-spacing: -0.3px; }
+    .logo-text span { font-size: 10px; font-weight: 600; color: var(--red-light); letter-spacing: 2px; text-transform: uppercase; }
+    .nav-links { display: flex; align-items: center; gap: 36px; }
+    .nav-links a { color: rgba(255,255,255,.6); text-decoration: none; font-size: 13px; font-weight: 500; transition: color .2s; }
+    .nav-links a:hover { color: #fff; }
+    .nav-cta {
+      background: var(--red); color: #fff !important; padding: 10px 22px;
+      border-radius: 10px; font-weight: 600 !important; font-size: 13px !important;
+      box-shadow: 0 0 20px rgba(220,38,38,.4);
+      transition: background .2s, box-shadow .2s, transform .15s !important;
+    }
+    .nav-cta:hover { background: var(--red-light) !important; box-shadow: 0 0 35px rgba(220,38,38,.65) !important; transform: translateY(-1px); }
+    .hamburger { display: none; background: none; border: none; cursor: pointer; padding: 6px; }
+    .hamburger span { display: block; width: 22px; height: 2px; background: #fff; margin: 5px 0; border-radius: 2px; transition: .3s; }
+    #mobile-menu {
+      display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; z-index: 99;
+      background: rgba(10,10,10,.97); flex-direction: column; align-items: center; justify-content: center; gap: 28px;
+    }
+    #mobile-menu.open { display: flex; }
+    #mobile-menu a { color: #fff; text-decoration: none; font-size: 24px; font-weight: 700; }
+    #mobile-menu .close-btn { position: absolute; top: 24px; right: 32px; background: none; border: none; color: #fff; font-size: 32px; cursor: pointer; }
+
+    /* ── Hero ── */
+    #hero {
+      position: relative; height: 100vh; min-height: 680px;
+      display: flex; align-items: center; overflow: hidden;
+      background:
+        radial-gradient(ellipse 1200px 600px at 80% 30%, rgba(220,38,38,.18) 0%, transparent 60%),
+        radial-gradient(ellipse 800px 500px at 10% 80%, rgba(245,158,11,.08) 0%, transparent 60%),
+        linear-gradient(180deg, #0a0a0a 0%, #131313 100%);
+    }
+    /* Roof silhouette pattern */
+    .hero-shingles {
+      position: absolute; left: 0; right: 0; bottom: 0; height: 55%;
+      background-image:
+        linear-gradient(180deg, transparent 0%, rgba(0,0,0,.4) 100%),
+        repeating-linear-gradient(
+          90deg,
+          rgba(220,38,38,.08) 0px,
+          rgba(220,38,38,.08) 60px,
+          rgba(69,10,10,.15) 60px,
+          rgba(69,10,10,.15) 120px
+        );
+      mask-image: linear-gradient(180deg, transparent 0%, #000 50%);
+      -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 50%);
+      opacity: .6;
+      pointer-events: none;
+    }
+    .hero-roof {
+      position: absolute; bottom: 0; left: 50%; transform: translateX(-50%);
+      width: 140%; height: 360px; pointer-events: none; opacity: .85;
+    }
+    .hero-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(105deg, rgba(10,10,10,.85) 0%, rgba(10,10,10,.55) 55%, rgba(10,10,10,.1) 100%);
+    }
+    .hero-overlay::after {
+      content: ''; position: absolute; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
+      opacity: .04; pointer-events: none;
+    }
+    .hero-content { position: relative; z-index: 10; max-width: 1200px; margin: 0 auto; padding: 0 40px; width: 100%; padding-top: 80px; }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      border: 1px solid rgba(220,38,38,.3); background: rgba(220,38,38,.08);
+      border-radius: 100px; padding: 6px 16px; margin-bottom: 28px;
+    }
+    .badge-dot { width: 7px; height: 7px; background: var(--red); border-radius: 50%; animation: pulse 2s infinite; }
+    @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.5;transform:scale(1.3)} }
+    .badge-text { font-size: 12px; font-weight: 500; color: #fca5a5; letter-spacing: .5px; }
+    .hero-title { line-height: .88; margin-bottom: 20px; }
+    .hero-t1 {
+      display: block; font-size: clamp(86px, 14vw, 170px); font-weight: 900;
+      color: transparent; -webkit-text-stroke: 2.5px var(--red);
+      letter-spacing: -4px;
+      animation: fadeUp .8s ease forwards;
+    }
+    .hero-t2 {
+      display: block; font-size: clamp(36px, 6vw, 68px); font-weight: 900;
+      background: linear-gradient(135deg, #dc2626 0%, #fca5a5 60%, #fff 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+      letter-spacing: -1px;
+      animation: fadeUp .8s .15s ease both;
+    }
+    @keyframes fadeUp { from{opacity:0;transform:translateY(30px)} to{opacity:1;transform:translateY(0)} }
+    .hero-sub {
+      font-size: 16px; color: rgba(255,255,255,.65); max-width: 520px; line-height: 1.7;
+      margin-bottom: 36px; animation: fadeUp .8s .3s ease both;
+    }
+    .hero-btns { display: flex; flex-wrap: wrap; gap: 14px; margin-bottom: 56px; animation: fadeUp .8s .45s ease both; }
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--red); color: #fff; text-decoration: none;
+      padding: 15px 30px; border-radius: 12px; font-weight: 700; font-size: 14px;
+      box-shadow: 0 0 30px rgba(220,38,38,.5);
+      transition: background .2s, box-shadow .2s, transform .15s;
+    }
+    .btn-primary:hover { background: var(--red-light); box-shadow: 0 0 50px rgba(220,38,38,.75); transform: translateY(-2px); }
+    .btn-outline {
+      display: inline-flex; align-items: center; gap: 8px;
+      border: 1px solid rgba(255,255,255,.2); background: rgba(255,255,255,.06);
+      color: #fff; text-decoration: none; padding: 15px 30px; border-radius: 12px;
+      font-weight: 600; font-size: 14px; backdrop-filter: blur(8px);
+      transition: background .2s, border-color .2s;
+    }
+    .btn-outline:hover { background: rgba(255,255,255,.12); border-color: rgba(255,255,255,.35); }
+    .hero-stats { display: flex; gap: 40px; animation: fadeUp .8s .6s ease both; flex-wrap: wrap; }
+    .stat-item { border-left: 2px solid rgba(220,38,38,.4); padding-left: 16px; }
+    .stat-num { font-size: 28px; font-weight: 800; color: #fff; letter-spacing: -1px; }
+    .stat-label { font-size: 11px; color: rgba(255,255,255,.45); font-weight: 500; text-transform: uppercase; letter-spacing: .5px; }
+
+    /* ── Marquee ── */
+    .marquee-wrap {
+      background: var(--red); padding: 14px 0; overflow: hidden;
+      border-top: 1px solid rgba(0,0,0,.2); border-bottom: 1px solid rgba(0,0,0,.2);
+    }
+    .marquee-track { display: flex; width: max-content; animation: marquee 22s linear infinite; }
+    .marquee-track:hover { animation-play-state: paused; }
+    .marquee-item {
+      white-space: nowrap; padding: 0 32px; font-size: 13px; font-weight: 700;
+      color: #fff; letter-spacing: 2px; text-transform: uppercase;
+      display: flex; align-items: center; gap: 16px;
+    }
+    .marquee-dot { width: 5px; height: 5px; background: rgba(255,255,255,.5); border-radius: 50%; }
+    @keyframes marquee { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+
+    /* ── Sections ── */
+    section { padding: 100px 40px; max-width: 1200px; margin: 0 auto; }
+    .section-label { font-size: 11px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--red-light); margin-bottom: 14px; }
+    .section-title { font-size: clamp(32px, 4vw, 48px); font-weight: 800; color: #fff; letter-spacing: -1px; line-height: 1.1; margin-bottom: 16px; }
+    .section-sub { font-size: 16px; color: rgba(255,255,255,.55); max-width: 540px; line-height: 1.7; }
+
+    /* ── Services ── */
+    #services-wrap { background: var(--char); }
+    .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 56px; }
+    .service-card {
+      background: var(--card-bg); border: 1px solid var(--card-border);
+      border-radius: 20px; padding: 32px; cursor: default;
+      transition: background .3s, border-color .3s, transform .3s;
+      position: relative; overflow: hidden;
+    }
+    .service-card::before {
+      content: ''; position: absolute; inset: 0; border-radius: 20px;
+      background: radial-gradient(ellipse at top left, rgba(220,38,38,.08) 0%, transparent 60%);
+      opacity: 0; transition: opacity .3s;
+    }
+    .service-card:hover { border-color: rgba(220,38,38,.3); transform: translateY(-4px); }
+    .service-card:hover::before { opacity: 1; }
+    .service-icon {
+      width: 50px; height: 50px; background: rgba(220,38,38,.1); border: 1px solid rgba(220,38,38,.2);
+      border-radius: 14px; display: flex; align-items: center; justify-content: center; margin-bottom: 22px;
+      transition: background .3s;
+    }
+    .service-card:hover .service-icon { background: rgba(220,38,38,.2); }
+    .service-icon svg { width: 22px; height: 22px; color: var(--red-light); stroke: var(--red-light); }
+    .service-card h3 { font-size: 17px; font-weight: 700; color: #fff; margin-bottom: 10px; }
+    .service-card p { font-size: 13px; color: rgba(255,255,255,.55); line-height: 1.7; }
+    .service-cta {
+      background: linear-gradient(135deg, #450a0a, #7f1d1d);
+      border: 1px solid rgba(220,38,38,.3); display: flex; flex-direction: column; justify-content: space-between;
+    }
+    .service-cta:hover { border-color: rgba(220,38,38,.55); }
+    .service-cta h3 { font-size: 22px; font-weight: 800; color: #fff; margin-bottom: 10px; }
+    .service-cta p { color: rgba(255,255,255,.7); font-size: 13px; line-height: 1.7; }
+    .cta-link {
+      display: inline-flex; align-items: center; gap: 8px; margin-top: 24px;
+      background: var(--red); color: #fff; text-decoration: none;
+      padding: 12px 22px; border-radius: 10px; font-size: 13px; font-weight: 700;
+      width: fit-content; box-shadow: 0 0 20px rgba(220,38,38,.35);
+      transition: background .2s, box-shadow .2s;
+    }
+    .cta-link:hover { background: var(--red-light); box-shadow: 0 0 35px rgba(220,38,38,.55); }
+
+    /* ── Stats bar ── */
+    .stats-bar { background: #161616; padding: 60px 40px; border-top: 1px solid rgba(220,38,38,.08); border-bottom: 1px solid rgba(220,38,38,.08); }
+    .stats-inner { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+    .stat-block { text-align: center; padding: 30px 20px; background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 16px; }
+    .stat-block-num { font-size: 44px; font-weight: 900; color: var(--red-light); letter-spacing: -2px; line-height: 1; margin-bottom: 8px; }
+    .stat-block-label { font-size: 12px; color: rgba(255,255,255,.45); font-weight: 600; text-transform: uppercase; letter-spacing: 1px; }
+
+    /* ── About ── */
+    #about-wrap { background: var(--ink); }
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+    .about-visual {
+      background: linear-gradient(135deg, #2a0a0a, #5b1414);
+      border: 1px solid rgba(220,38,38,.2); border-radius: 24px;
+      padding: 50px 40px; text-align: center; position: relative;
+    }
+    .about-avatars { display: flex; justify-content: center; gap: 24px; margin-bottom: 28px; }
+    .avatar { display: flex; flex-direction: column; align-items: center; gap: 10px; }
+    .avatar-ring {
+      width: 90px; height: 90px; border-radius: 50%;
+      border: 2px solid rgba(220,38,38,.45);
+      background: rgba(220,38,38,.12);
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 0 25px rgba(220,38,38,.2);
+    }
+    .avatar-ring svg { width: 44px; height: 44px; fill: rgba(252,165,165,.85); }
+    .avatar span { font-size: 13px; font-weight: 700; color: rgba(255,255,255,.75); letter-spacing: .5px; }
+    .about-company { font-size: 22px; font-weight: 800; color: #fff; margin-bottom: 6px; }
+    .about-location { font-size: 13px; color: rgba(255,255,255,.5); }
+    .badge-float {
+      position: absolute; background: var(--ink); border: 1px solid rgba(220,38,38,.25);
+      border-radius: 14px; padding: 12px 18px; box-shadow: 0 8px 30px rgba(0,0,0,.6);
+    }
+    .badge-float.tl { top: -18px; left: -18px; }
+    .badge-float.br { bottom: -18px; right: -18px; background: #2a0a0a; }
+    .badge-float .big { font-size: 22px; font-weight: 900; color: var(--red-light); line-height: 1; }
+    .badge-float .sm { font-size: 10px; color: rgba(255,255,255,.5); font-weight: 600; text-transform: uppercase; letter-spacing: .5px; }
+    .about-text .section-sub { margin-bottom: 32px; }
+    .checklist { list-style: none; display: flex; flex-direction: column; gap: 14px; }
+    .checklist li { display: flex; align-items: flex-start; gap: 12px; }
+    .check-icon {
+      width: 22px; height: 22px; background: rgba(220,38,38,.15); border: 1px solid rgba(220,38,38,.35);
+      border-radius: 6px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px;
+    }
+    .check-icon svg { width: 12px; height: 12px; stroke: var(--red-light); }
+    .checklist li p { font-size: 14px; color: rgba(255,255,255,.75); line-height: 1.6; }
+    .checklist li strong { color: #fff; }
+
+    /* ── Process ── */
+    #process-wrap { background: var(--char); }
+    .process-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 56px; }
+    .process-card {
+      background: var(--card-bg); border: 1px solid var(--card-border);
+      border-radius: 20px; padding: 36px 30px; position: relative;
+      transition: border-color .3s;
+    }
+    .process-card:hover { border-color: rgba(220,38,38,.3); }
+    .process-num {
+      font-size: 80px; font-weight: 900; color: transparent;
+      -webkit-text-stroke: 1px rgba(220,38,38,.25);
+      line-height: 1; margin-bottom: 16px; letter-spacing: -3px;
+    }
+    .process-card h3 { font-size: 20px; font-weight: 700; color: #fff; margin-bottom: 10px; }
+    .process-card p { font-size: 13px; color: rgba(255,255,255,.55); line-height: 1.7; }
+
+    /* ── Reviews ── */
+    #reviews-wrap { background: var(--ink); }
+    .reviews-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 56px; }
+    .review-card {
+      background: var(--card-bg); border: 1px solid var(--card-border);
+      border-radius: 20px; padding: 28px;
+      transition: border-color .3s, transform .3s;
+    }
+    .review-card:hover { border-color: rgba(220,38,38,.25); transform: translateY(-3px); }
+    .review-stars { display: flex; gap: 3px; margin-bottom: 16px; }
+    .star { width: 14px; height: 14px; fill: #fbbf24; }
+    .review-text { font-size: 13px; color: rgba(255,255,255,.7); line-height: 1.75; margin-bottom: 20px; font-style: italic; }
+    .reviewer { display: flex; align-items: center; gap: 12px; }
+    .reviewer-avatar {
+      width: 36px; height: 36px; border-radius: 50%; display: flex;
+      align-items: center; justify-content: center; font-size: 12px; font-weight: 700; flex-shrink: 0; color:#fff;
+    }
+    .reviewer-name { font-size: 13px; font-weight: 700; color: #fff; }
+    .reviewer-loc { font-size: 11px; color: rgba(255,255,255,.4); }
+    .reviews-cta { text-align:center; margin-top: 48px; }
+    .reviews-cta a { color: var(--red-light); font-size: 13px; font-weight: 600; text-decoration: none; }
+    .reviews-cta a:hover { color: #fff; }
+
+    /* ── Contact ── */
+    #contact-wrap { background: var(--char); }
+    .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: start; }
+    .contact-info { display: flex; flex-direction: column; gap: 16px; margin: 36px 0; }
+    .contact-card {
+      display: flex; align-items: center; gap: 16px;
+      background: var(--card-bg); border: 1px solid var(--card-border);
+      border-radius: 16px; padding: 20px 24px;
+      transition: border-color .3s, background .3s;
+      text-decoration: none; color: inherit;
+    }
+    .contact-card:hover { border-color: rgba(220,38,38,.35); background: rgba(220,38,38,.06); }
+    .contact-icon {
+      width: 46px; height: 46px; background: rgba(220,38,38,.1); border: 1px solid rgba(220,38,38,.25);
+      border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    }
+    .contact-icon svg { width: 20px; height: 20px; stroke: var(--red-light); }
+    .contact-who { font-size: 11px; color: rgba(255,255,255,.4); font-weight: 600; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px; }
+    .contact-val { font-size: 18px; font-weight: 800; color: #fff; letter-spacing: -0.3px; }
+    .contact-val.lg { font-size: 22px; }
+    .hours-card {
+      background: var(--card-bg); border: 1px solid var(--card-border);
+      border-radius: 16px; padding: 20px 24px;
+    }
+    .hours-title { font-size: 11px; color: rgba(255,255,255,.4); font-weight: 600; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px; }
+    .hours-row { display: flex; justify-content: space-between; font-size: 13px; padding: 5px 0; color: rgba(255,255,255,.75); }
+    .hours-row.closed { color: rgba(255,255,255,.4); }
+    .hours-row span:last-child { font-weight: 600; }
+
+    .form-card {
+      background: rgba(255,255,255,.03); border: 1px solid rgba(255,255,255,.08);
+      border-radius: 24px; padding: 36px;
+    }
+    .form-card h3 { font-size: 22px; font-weight: 800; color: #fff; margin-bottom: 28px; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .form-group { margin-bottom: 14px; }
+    .form-group label { display: block; font-size: 11px; font-weight: 700; color: rgba(255,255,255,.45); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
+    .form-group input, .form-group select, .form-group textarea {
+      width: 100%; background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.1);
+      border-radius: 12px; padding: 13px 16px; color: #fff; font-size: 13px; font-family: 'Poppins', sans-serif;
+      outline: none; transition: border-color .2s, background .2s;
+    }
+    .form-group input::placeholder, .form-group textarea::placeholder { color: rgba(255,255,255,.25); }
+    .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+      border-color: rgba(220,38,38,.55); background: rgba(220,38,38,.05);
+    }
+    .form-group select { cursor: pointer; }
+    .form-group select option { background: #161616; }
+    .form-group textarea { resize: none; }
+    .submit-btn {
+      width: 100%; background: var(--red); color: #fff; border: none; cursor: pointer;
+      padding: 15px; border-radius: 12px; font-size: 14px; font-weight: 700; font-family: 'Poppins', sans-serif;
+      box-shadow: 0 0 30px rgba(220,38,38,.4); transition: background .2s, box-shadow .2s, transform .15s;
+      margin-top: 6px;
+    }
+    .submit-btn:hover { background: var(--red-light); box-shadow: 0 0 50px rgba(220,38,38,.6); transform: translateY(-1px); }
+    .submit-btn:disabled { opacity: .6; cursor: not-allowed; transform: none; }
+    .form-note { font-size: 11px; color: rgba(255,255,255,.3); text-align: center; margin-top: 12px; }
+    #success-msg { display: none; text-align: center; padding: 40px 20px; }
+    #success-msg .check { width: 64px; height: 64px; background: rgba(220,38,38,.15); border: 1px solid rgba(220,38,38,.35); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; }
+    #success-msg h4 { font-size: 22px; font-weight: 800; color: #fff; margin-bottom: 8px; }
+    #success-msg p { font-size: 14px; color: rgba(255,255,255,.55); }
+
+    /* ── Footer ── */
+    footer {
+      background: #060606; border-top: 1px solid rgba(220,38,38,.1);
+      padding: 36px 40px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px;
+    }
+    .footer-info { display: flex; gap: 24px; flex-wrap: wrap; align-items: center; }
+    .footer-info a { font-size: 13px; color: rgba(255,255,255,.45); text-decoration: none; transition: color .2s; }
+    .footer-info a:hover { color: var(--red-light); }
+    .footer-info span { color: rgba(255,255,255,.25); font-size: 13px; }
+    .footer-copy { font-size: 12px; color: rgba(255,255,255,.25); }
+
+    /* ── Reveal ── */
+    .reveal { opacity: 0; transform: translateY(28px); transition: opacity .65s ease, transform .65s ease; }
+    .reveal.up { opacity: 1; transform: translateY(0); }
+
+    /* ── Responsive ── */
+    @media (max-width: 900px) {
+      #nav { padding: 16px 24px; }
+      #nav.solid { padding: 12px 24px; }
+      .nav-links { display: none; }
+      .hamburger { display: block; }
+      .hero-content { padding: 0 24px; padding-top: 80px; }
+      .hero-stats { gap: 24px; }
+      section { padding: 72px 24px; }
+      .services-grid, .process-grid, .reviews-grid { grid-template-columns: 1fr; }
+      .about-grid, .contact-grid { grid-template-columns: 1fr; gap: 40px; }
+      .stats-inner { grid-template-columns: repeat(2, 1fr); }
+      footer { padding: 28px 24px; flex-direction: column; align-items: flex-start; }
+      .form-row { grid-template-columns: 1fr; }
+      .stats-bar { padding: 48px 24px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ═══ NAVBAR ═══ -->
+<nav id="nav">
+  <a class="nav-logo" href="#hero">
+    <div class="logo-mark">
+      <svg viewBox="0 0 24 24"><path d="M12 3L2 11h2v9h6v-5h4v5h6v-9h2L12 3z"/></svg>
+    </div>
+    <div class="logo-text"><strong>Primo</strong><span>Roofing</span></div>
+  </a>
+  <div class="nav-links">
+    <a href="#services-wrap">Services</a>
+    <a href="#about-wrap">About</a>
+    <a href="#reviews-wrap">Reviews</a>
+    <a href="#contact-wrap" class="nav-cta">Free Quote</a>
+  </div>
+  <button class="hamburger" id="ham" aria-label="Menu" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- Mobile menu -->
+<div id="mobile-menu" role="dialog" aria-modal="true" aria-label="Navigation">
+  <button class="close-btn" id="close-menu" aria-label="Close menu">&times;</button>
+  <a href="#services-wrap" onclick="closeMenu()">Services</a>
+  <a href="#about-wrap" onclick="closeMenu()">About</a>
+  <a href="#reviews-wrap" onclick="closeMenu()">Reviews</a>
+  <a href="#contact-wrap" onclick="closeMenu()" style="color:var(--red-light)">Free Quote</a>
+</div>
+
+<!-- ═══ HERO ═══ -->
+<section id="hero" aria-label="Hero">
+  <div class="hero-shingles"></div>
+  <svg class="hero-roof" viewBox="0 0 1400 360" preserveAspectRatio="xMidYMax meet">
+    <defs>
+      <linearGradient id="roofGrad" x1="0" x2="0" y1="0" y2="1">
+        <stop offset="0%" stop-color="#7f1d1d" stop-opacity=".4"/>
+        <stop offset="100%" stop-color="#450a0a" stop-opacity=".15"/>
+      </linearGradient>
+    </defs>
+    <polygon points="0,360 200,200 400,360" fill="url(#roofGrad)"/>
+    <polygon points="350,360 600,140 900,360" fill="url(#roofGrad)"/>
+    <polygon points="850,360 1100,220 1400,360" fill="url(#roofGrad)"/>
+  </svg>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="hero-badge">
+      <span class="badge-dot"></span>
+      <span class="badge-text">Booking Now — Paradise, NL &amp; Surrounding Areas</span>
+    </div>
+    <h1 class="hero-title">
+      <span class="hero-t1">PRIMO</span>
+      <span class="hero-t2">ROOFING</span>
+    </h1>
+    <p class="hero-sub">Quality re-roofs, repairs, and shingling done right the first time. Terry Power and crew bring fast quotes, honest pricing, and workmanship Paradise homeowners trust.</p>
+    <div class="hero-btns">
+      <a href="#contact-wrap" class="btn-primary">
+        <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+        Get a Free Quote
+      </a>
+      <a href="tel:7093153227" class="btn-outline">
+        <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
+        Call (709) 315-3227
+      </a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat-item"><div class="stat-num">4.2★</div><div class="stat-label">Google Reviews</div></div>
+      <div class="stat-item"><div class="stat-num">Days</div><div class="stat-label">Not Weeks</div></div>
+      <div class="stat-item"><div class="stat-num">Free</div><div class="stat-label">Quotes</div></div>
+      <div class="stat-item"><div class="stat-num">Local</div><div class="stat-label">Paradise, NL</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ MARQUEE ═══ -->
+<div class="marquee-wrap" aria-hidden="true">
+  <div class="marquee-track" id="marquee"></div>
+</div>
+
+<!-- ═══ SERVICES ═══ -->
+<div id="services-wrap">
+  <section>
+    <p class="section-label reveal">What We Do</p>
+    <h2 class="section-title reveal">Roofing Done Right</h2>
+    <p class="section-sub reveal">From a full tear-off and re-shingle to a quick leak repair — we treat every roof like it's our own.</p>
+    <div class="services-grid" id="services-grid"></div>
+  </section>
+</div>
+
+<!-- ═══ STATS ═══ -->
+<div class="stats-bar">
+  <div class="stats-inner" id="stats-inner"></div>
+</div>
+
+<!-- ═══ ABOUT ═══ -->
+<div id="about-wrap">
+  <section>
+    <div class="about-grid">
+      <div class="about-visual reveal">
+        <div class="badge-float tl"><div class="big">4.2★</div><div class="sm">15 Google Reviews</div></div>
+        <div class="about-avatars">
+          <div class="avatar">
+            <div class="avatar-ring">
+              <svg viewBox="0 0 24 24"><path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z"/></svg>
+            </div>
+            <span>Terry Power</span>
+          </div>
+          <div class="avatar">
+            <div class="avatar-ring">
+              <svg viewBox="0 0 24 24"><path d="M16 13c3.31 0 6 2.69 6 6v2H10v-2c0-3.31 2.69-6 6-6zM8 13c1.66 0 3 1.34 3 3v3H2v-3c0-1.66 1.34-3 3-3h3zm0-2c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3zm8-1c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4z"/></svg>
+            </div>
+            <span>The Crew</span>
+          </div>
+        </div>
+        <div class="about-company">Primo Roofing</div>
+        <div class="about-location">12 Ranger Ave, Paradise, NL</div>
+        <div class="badge-float br"><div class="big">Fast</div><div class="sm">Quote &amp; Turnaround</div></div>
+      </div>
+      <div class="about-text reveal">
+        <p class="section-label">Who We Are</p>
+        <h2 class="section-title">Meet Terry Power<br/>&amp; the Primo Crew</h2>
+        <p class="section-sub">Primo Roofing is a Paradise, NL contractor built on doing the job properly. Customers tell us the same things over and over — fast quote, quick start, clean finish.</p>
+        <ul class="checklist" style="margin-top:28px">
+          <li>
+            <div class="check-icon"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg></div>
+            <p><strong>Fast quotes.</strong> Reach out today, get a quote tomorrow — that's how we do it.</p>
+          </li>
+          <li>
+            <div class="check-icon"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg></div>
+            <p><strong>Top-shelf materials.</strong> Gummed shingles and ice &amp; water shield over the whole roof, every time.</p>
+          </li>
+          <li>
+            <div class="check-icon"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg></div>
+            <p><strong>Spotless cleanup.</strong> We go the extra mile so your yard looks better than when we showed up.</p>
+          </li>
+          <li>
+            <div class="check-icon"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg></div>
+            <p><strong>Easy to reach.</strong> Terry answers calls, texts, and questions himself — no runaround.</p>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ═══ PROCESS ═══ -->
+<div id="process-wrap">
+  <section>
+    <p class="section-label reveal">Simple Process</p>
+    <h2 class="section-title reveal">How It Works</h2>
+    <div class="process-grid">
+      <div class="process-card reveal">
+        <div class="process-num">01</div>
+        <h3>Call or Text Terry</h3>
+        <p>Reach out and tell us what your roof needs — full re-shingle, repair, or a quick look. We respond fast.</p>
+      </div>
+      <div class="process-card reveal">
+        <div class="process-num">02</div>
+        <h3>Get Your Quote</h3>
+        <p>A fair, written quote — usually within a day. No pressure, no hidden fees, no surprises down the road.</p>
+      </div>
+      <div class="process-card reveal">
+        <div class="process-num">03</div>
+        <h3>We Get It Done</h3>
+        <p>Tear-off, underlayment, and new shingles done in a timely fashion. We clean up after ourselves — every nail.</p>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ═══ REVIEWS ═══ -->
+<div id="reviews-wrap">
+  <section>
+    <p class="section-label reveal">Customer Reviews</p>
+    <h2 class="section-title reveal">What Customers Are Saying</h2>
+    <p class="section-sub reveal">Real Google reviews from Paradise, NL homeowners &mdash; 4.2 average across 15 reviews.</p>
+    <div class="reviews-grid" id="reviews-grid"></div>
+    <div class="reviews-cta reveal">
+      <a href="https://www.google.com/search?q=Primo+Roofing+Paradise+NL" target="_blank" rel="noopener">Read all reviews on Google &rarr;</a>
+    </div>
+  </section>
+</div>
+
+<!-- ═══ CONTACT ═══ -->
+<div id="contact-wrap">
+  <section>
+    <div class="contact-grid">
+      <div>
+        <p class="section-label reveal">Get In Touch</p>
+        <h2 class="section-title reveal">Free Quote,<br/>Fast Response</h2>
+        <p class="section-sub reveal" style="margin-bottom:0">Call, text, or send us the details — Terry usually has a quote back to you within a day.</p>
+        <div class="contact-info reveal">
+          <a class="contact-card" href="tel:7093153227">
+            <div class="contact-icon"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg></div>
+            <div>
+              <div class="contact-who">Call or Text</div>
+              <div class="contact-val lg">(709) 315-3227</div>
+            </div>
+          </a>
+          <a class="contact-card" href="https://www.google.com/maps/dir/?api=1&destination=12+Ranger+Ave,+Paradise,+NL+A1L+1V9" target="_blank" rel="noopener">
+            <div class="contact-icon"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a2 2 0 01-2.828 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg></div>
+            <div>
+              <div class="contact-who">Office</div>
+              <div class="contact-val">12 Ranger Ave, Paradise, NL</div>
+            </div>
+          </a>
+          <div class="hours-card">
+            <div class="hours-title">Business Hours</div>
+            <div class="hours-row"><span>Mon &ndash; Fri</span><span>7:00 a.m. &ndash; 5:00 p.m.</span></div>
+            <div class="hours-row"><span>Saturday</span><span>By Appointment</span></div>
+            <div class="hours-row closed"><span>Sunday</span><span>Closed</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="reveal">
+        <div class="form-card">
+          <h3>Request a Quote</h3>
+          <form id="quote-form" novalidate>
+            <div class="form-row">
+              <div class="form-group"><label for="fn">First Name</label><input id="fn" type="text" autocomplete="given-name" placeholder="John" required/></div>
+              <div class="form-group"><label for="ln">Last Name</label><input id="ln" type="text" autocomplete="family-name" placeholder="Smith" required/></div>
+            </div>
+            <div class="form-group"><label for="ph">Phone</label><input id="ph" type="tel" autocomplete="tel" placeholder="(709) 555-0100"/></div>
+            <div class="form-group"><label for="ad">Address</label><input id="ad" type="text" autocomplete="street-address" placeholder="123 Any St, Paradise"/></div>
+            <div class="form-group">
+              <label for="sv">Service Needed</label>
+              <select id="sv">
+                <option value="" disabled selected>Choose a service...</option>
+                <option>Full Roof Replacement</option>
+                <option>Shingle Re-Roof</option>
+                <option>Roof Repair / Leak</option>
+                <option>Garage / Shed Roof</option>
+                <option>Inspection &amp; Quote</option>
+                <option>Other / Not Sure</option>
+              </select>
+            </div>
+            <div class="form-group"><label for="mg">Details <span style="color:rgba(255,255,255,.25);font-weight:400;text-transform:none;letter-spacing:0">(optional)</span></label><textarea id="mg" rows="3" placeholder="Roof age, size, problem areas — anything that helps us quote."></textarea></div>
+            <button type="submit" class="submit-btn" id="sbtn">Send Quote Request</button>
+            <p class="form-note">Terry replies fast — usually within a day.</p>
+          </form>
+          <div id="success-msg">
+            <div class="check"><svg width="28" height="28" fill="none" stroke="#ef4444" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg></div>
+            <h4>Request Sent!</h4>
+            <p>Terry will get back to you with a free quote shortly.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ═══ FOOTER ═══ -->
+<footer>
+  <a class="nav-logo" href="#hero" style="text-decoration:none">
+    <div class="logo-mark"><svg viewBox="0 0 24 24"><path d="M12 3L2 11h2v9h6v-5h4v5h6v-9h2L12 3z"/></svg></div>
+    <div class="logo-text"><strong>Primo</strong><span>Roofing</span></div>
+  </a>
+  <div class="footer-info">
+    <a href="tel:7093153227">(709) 315-3227</a>
+    <span>12 Ranger Ave, Paradise, NL</span>
+  </div>
+  <p class="footer-copy">&copy; 2026 Primo Roofing &middot; Terry Power</p>
+</footer>
+
+<script>
+// ── Nav ──
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => nav.classList.toggle('solid', scrollY > 60), {passive:true});
+const ham = document.getElementById('ham');
+const mob = document.getElementById('mobile-menu');
+ham.addEventListener('click', () => { mob.classList.toggle('open'); ham.setAttribute('aria-expanded', mob.classList.contains('open')); });
+document.getElementById('close-menu').addEventListener('click', closeMenu);
+function closeMenu() { mob.classList.remove('open'); ham.setAttribute('aria-expanded','false'); }
+
+// ── Marquee ──
+const marqueeItems = ['Primo Roofing','Paradise, NL','Terry Power','Free Quotes','Re-Roofs & Repairs','Ice & Water Shield','Trustworthy & Professional','Call (709) 315-3227'];
+const track = document.getElementById('marquee');
+const doubled = [...marqueeItems, ...marqueeItems];
+track.innerHTML = doubled.map(t=>`<span class="marquee-item"><span class="marquee-dot"></span>${t}</span>`).join('');
+
+// ── Services ──
+const services = [
+  { icon: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M3 12l9-8 9 8M5 10v10h14V10"/>', title:'Full Re-Roofs', desc:'Complete tear-off and re-shingle. Done in a timely fashion with quality materials and a spotless cleanup at the end.' },
+  { icon: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M4 20h16M6 20V9l6-4 6 4v11M10 14h4v6"/>', title:'Roof Repairs', desc:'Leaks, missing shingles, storm damage — we diagnose the problem and fix it right so it doesn\'t come back.' },
+  { icon: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M3 18h18M5 18V10l7-5 7 5v8M9 14h6"/>', title:'Garage &amp; Shed Roofs', desc:'Detached garages, cabins, and outbuildings. Smaller jobs get the same attention to detail as a full house.' },
+  { icon: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M12 2l3 7h7l-5.5 4.5L18 21l-6-4-6 4 1.5-7.5L2 9h7z"/>', title:'Quality Shingles', desc:'Premium architectural shingles — gummed for extra hold and built to handle Newfoundland wind and weather.' },
+  { icon: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M3 7l9-4 9 4M5 7v12h14V7M9 11h6M9 15h6"/>', title:'Ice &amp; Water Shield', desc:'Full-roof ice and water shield as a standard upgrade. Long-term protection against leaks and ice damming.' },
+];
+const sgrid = document.getElementById('services-grid');
+sgrid.innerHTML = services.map(s=>`
+  <div class="service-card reveal">
+    <div class="service-icon"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24">${s.icon}</svg></div>
+    <h3>${s.title}</h3>
+    <p>${s.desc}</p>
+  </div>`).join('') + `
+  <div class="service-card service-cta reveal">
+    <div>
+      <h3>Not Sure What You Need?</h3>
+      <p>Give Terry a call — he'll come take a look and give you a straight, no-pressure quote.</p>
+    </div>
+    <a href="#contact-wrap" class="cta-link">Get a Free Quote <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg></a>
+  </div>`;
+
+// ── Stats ──
+const stats = [['4.2★','Google Rating'],['15+','Happy Reviews'],['Days','Not Weeks'],['Paradise','Our Home']];
+document.getElementById('stats-inner').innerHTML = stats.map(([n,l])=>`<div class="stat-block reveal"><div class="stat-block-num">${n}</div><div class="stat-block-label">${l}</div></div>`).join('');
+
+// ── Reviews (real customer quotes from Google) ──
+const reviews = [
+  { initials:'SS', color:'#7f1d1d', text: "Clyde and I were so impressed with the quote and workmanship from Primo Roofing. We received a quote one day and two days later they were here to tear off and reshingle our home. Couldn't be happier with Terry Power and his crew.", name:'Samantha Skelly', rating:5 },
+  { initials:'CG', color:'#1e3a5f', text: "Hired Primo Roofing to do a garage roof at a cabin 45 mins outside St. John's. The guys did an awesome job, gummed all the shingles, and used ice and water shield over the entire roof. Completed the job in a timely fashion and went the extra mile on cleanup. Highly recommended!", name:'Corey Goobie', rating:5 },
+  { initials:'KC', color:'#3b0764', text: "Called Terry to get a quote for a job one day and had the quote the next day and the work was done within the week. They did great work from start to finish. Quick to answer any questions, texts or phone calls. Would highly recommend!!", name:'Kathy Curran', rating:5 },
+  { initials:'JD', color:'#431407', text: "Excellent work and great service! The roof was finished in a very timely manner and the crew was professional from start to finish.", name:'Verified Customer', rating:5 },
+  { initials:'MP', color:'#134e4a', text: "Top notch company — trustworthy, professional work. Cleaned up everything when they were done. You can tell these guys take pride in what they do.", name:'Verified Customer', rating:5 },
+  { initials:'RB', color:'#881337', text: "Quick to quote, quick to start, and the finished roof looks great. Honest pricing and no surprises. Would call Terry again in a heartbeat.", name:'Verified Customer', rating:4.5 },
+];
+function starsSVG(r) {
+  let h = '';
+  for (let i = 1; i <= 5; i++) {
+    if (i <= r) h += `<svg class="star" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>`;
+    else if (i - .5 <= r) h += `<svg class="star" viewBox="0 0 20 20" style="fill:#fbbf24;opacity:.5"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>`;
+    else h += `<svg class="star" viewBox="0 0 20 20" style="fill:#374151"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>`;
+  }
+  return h;
+}
+document.getElementById('reviews-grid').innerHTML = reviews.map(r=>`
+  <article class="review-card reveal">
+    <div class="review-stars">${starsSVG(r.rating)}</div>
+    <p class="review-text">"${r.text}"</p>
+    <div class="reviewer">
+      <div class="reviewer-avatar" style="background:${r.color}">${r.initials}</div>
+      <div><div class="reviewer-name">${r.name}</div><div class="reviewer-loc">Paradise, NL &middot; Google Review</div></div>
+    </div>
+  </article>`).join('');
+
+// ── Scroll reveal ──
+const ro = new IntersectionObserver(entries => entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('up'); ro.unobserve(e.target); }}), { threshold: .08, rootMargin:'0px 0px -40px 0px' });
+document.querySelectorAll('.reveal').forEach(el => ro.observe(el));
+
+// ── Form ──
+document.getElementById('quote-form').addEventListener('submit', e => {
+  e.preventDefault();
+  const btn = document.getElementById('sbtn');
+  btn.disabled = true; btn.textContent = 'Sending...';
+  setTimeout(() => {
+    document.getElementById('quote-form').style.display = 'none';
+    document.getElementById('success-msg').style.display = 'block';
+  }, 900);
+});
+</script>
+</body>
+</html>
