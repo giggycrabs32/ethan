@@ -7,16 +7,19 @@
 <meta name="description" content="Best Price Roofing — professional roofing contractor serving St. John's and the Avalon Peninsula. 5.0 stars, 18 reviews. Open 24 hours." />
 <style>
   :root {
-    --ink: #111;
-    --ink-2: #2a2a2a;
-    --muted: #6b6b6b;
-    --line: #e6e6e6;
-    --bg: #fafafa;
+    --ink: #0e0e10;
+    --ink-2: #1a1a1d;
     --paper: #ffffff;
-    --max: 1120px;
+    --cream: #f5f1ea;
+    --line: #e6e6e6;
+    --muted: #6b6b6b;
+    --accent: #d4632a;     /* warm rust / weathered copper */
+    --accent-2: #b14a17;
+    --max: 1180px;
   }
   *, *::before, *::after { box-sizing: border-box; }
   html, body { margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
   body {
     font-family: "Helvetica Neue", Helvetica, Arial, "Inter", system-ui, -apple-system, sans-serif;
     color: var(--ink);
@@ -24,273 +27,433 @@
     line-height: 1.55;
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
+    overflow-x: hidden;
   }
-  a { color: var(--ink); text-decoration: none; border-bottom: 1px solid var(--ink); }
-  a:hover { opacity: .7; }
+  a { color: inherit; text-decoration: none; }
   img { max-width: 100%; display: block; }
   .wrap { max-width: var(--max); margin: 0 auto; padding: 0 24px; }
+  .serif { font-family: "Playfair Display", Georgia, "Times New Roman", serif; font-weight: 500; }
 
   /* Header */
   header {
-    border-bottom: 1px solid var(--line);
-    background: var(--paper);
-    position: sticky; top: 0; z-index: 10;
+    background: var(--ink);
+    color: #fff;
+    position: sticky; top: 0; z-index: 50;
+    border-bottom: 1px solid #222;
   }
   .nav {
     display: flex; align-items: center; justify-content: space-between;
-    padding: 22px 0;
+    padding: 18px 0;
   }
   .brand {
-    font-weight: 700;
-    letter-spacing: .12em;
+    font-weight: 800;
+    letter-spacing: .14em;
     text-transform: uppercase;
-    font-size: 14px;
-    border: none;
+    font-size: 13px;
+    display: flex; align-items: center; gap: 10px;
   }
-  .brand span { font-weight: 400; color: var(--muted); }
+  .brand .dot {
+    width: 9px; height: 9px; border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 0 0 rgba(212,99,42,.7);
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0%   { box-shadow: 0 0 0 0 rgba(212,99,42,.6); }
+    70%  { box-shadow: 0 0 0 12px rgba(212,99,42,0); }
+    100% { box-shadow: 0 0 0 0 rgba(212,99,42,0); }
+  }
+  .brand span.faint { font-weight: 400; color: #9a9a9a; letter-spacing: .08em; }
   nav ul { display: flex; gap: 28px; list-style: none; margin: 0; padding: 0; }
   nav a {
-    font-size: 13px;
-    letter-spacing: .08em;
+    font-size: 12px;
+    letter-spacing: .14em;
     text-transform: uppercase;
-    border: none;
-    color: var(--ink-2);
+    color: #ddd;
+    position: relative;
+    padding: 4px 0;
   }
-  nav a:hover { color: #000; opacity: 1; border-bottom: 1px solid #000; }
+  nav a::after {
+    content: ""; position: absolute; left: 0; bottom: 0;
+    width: 0; height: 1px; background: var(--accent);
+    transition: width .3s ease;
+  }
+  nav a:hover { color: #fff; }
+  nav a:hover::after { width: 100%; }
+  .open-pill {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-size: 11px; letter-spacing: .18em; text-transform: uppercase;
+    color: #fff; border: 1px solid #2a2a2d; padding: 6px 12px; border-radius: 999px;
+  }
+  .open-pill .pdot {
+    width: 7px; height: 7px; border-radius: 50%; background: #36c98a;
+    animation: pulse-green 2s infinite;
+  }
+  @keyframes pulse-green {
+    0% { box-shadow: 0 0 0 0 rgba(54,201,138,.7); }
+    70% { box-shadow: 0 0 0 8px rgba(54,201,138,0); }
+    100% { box-shadow: 0 0 0 0 rgba(54,201,138,0); }
+  }
+
+  /* Marquee */
+  .marquee {
+    background: var(--ink);
+    color: #fff;
+    border-top: 1px solid #222;
+    overflow: hidden;
+    padding: 14px 0;
+  }
+  .marquee-track {
+    display: flex; gap: 48px;
+    width: max-content;
+    animation: scroll 38s linear infinite;
+    font-size: 13px; letter-spacing: .22em; text-transform: uppercase;
+    color: #9a9a9a;
+  }
+  .marquee-track span { display: inline-flex; align-items: center; gap: 16px; }
+  .marquee-track .sep { color: var(--accent); }
+  @keyframes scroll {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+  }
 
   /* Hero */
   .hero {
-    border-bottom: 1px solid var(--line);
-    padding: 96px 0 88px;
+    background: var(--ink);
+    color: #fff;
+    padding: 110px 0 130px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: "";
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(1100px 600px at 80% 30%, rgba(212,99,42,.18), transparent 60%),
+      radial-gradient(900px 500px at 10% 90%, rgba(212,99,42,.08), transparent 70%);
+    pointer-events: none;
   }
   .hero-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 56px;
-    align-items: center;
+    position: relative;
+    display: grid; grid-template-columns: 1.05fr 1fr;
+    gap: 64px; align-items: center;
   }
-  .hero-photo {
-    width: 100%;
-    aspect-ratio: 16 / 11;
-    object-fit: cover;
-    filter: grayscale(100%) contrast(1.02);
-    border: 1px solid var(--line);
-  }
-  @media (max-width: 860px) {
-    .hero-grid { grid-template-columns: 1fr; gap: 32px; }
-  }
-
-  .feature-photo {
-    width: 100%;
-    aspect-ratio: 3 / 2;
-    object-fit: cover;
-    filter: grayscale(100%) contrast(1.02);
-    border: 1px solid var(--line);
-    display: block;
-  }
-  .photo-caption {
-    font-size: 11px;
-    letter-spacing: .2em;
-    text-transform: uppercase;
-    color: var(--muted);
-    margin-top: 12px;
-  }
-  .photo-block { margin: 56px 0; }
-  .photo-block.wide .feature-photo { aspect-ratio: 21 / 9; }
   .eyebrow {
     font-size: 12px;
-    letter-spacing: .24em;
+    letter-spacing: .26em;
     text-transform: uppercase;
-    color: var(--muted);
-    margin-bottom: 24px;
+    color: var(--accent);
+    margin-bottom: 22px;
+    display: inline-flex; align-items: center; gap: 12px;
+  }
+  .eyebrow::before {
+    content: ""; width: 28px; height: 1px; background: var(--accent);
   }
   h1 {
-    font-family: Georgia, "Times New Roman", serif;
-    font-weight: 400;
-    font-size: clamp(40px, 6vw, 72px);
-    line-height: 1.05;
-    letter-spacing: -.01em;
-    margin: 0 0 24px;
-    max-width: 14ch;
+    font-family: "Playfair Display", Georgia, serif;
+    font-weight: 500;
+    font-size: clamp(44px, 6.4vw, 84px);
+    line-height: 1.02;
+    letter-spacing: -.015em;
+    margin: 0 0 28px;
+  }
+  h1 em {
+    font-style: italic;
+    color: var(--accent);
   }
   .lede {
     font-size: 18px;
-    color: var(--ink-2);
-    max-width: 60ch;
+    color: #cfcfcf;
+    max-width: 56ch;
     margin: 0 0 36px;
   }
   .actions { display: flex; gap: 14px; flex-wrap: wrap; }
   .btn {
-    display: inline-block;
-    padding: 14px 22px;
-    border: 1px solid var(--ink);
-    font-size: 13px;
-    letter-spacing: .12em;
-    text-transform: uppercase;
-    background: var(--ink);
+    display: inline-flex; align-items: center; gap: 10px;
+    padding: 16px 24px;
+    border: 1px solid var(--accent);
+    background: var(--accent);
     color: #fff;
+    font-size: 12px;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    font-weight: 600;
+    transition: transform .2s ease, background .2s ease;
   }
-  .btn.ghost { background: transparent; color: var(--ink); }
-  .btn:hover { opacity: .85; }
+  .btn:hover { background: var(--accent-2); transform: translateY(-1px); }
+  .btn.ghost { background: transparent; border-color: #fff; color: #fff; }
+  .btn.ghost:hover { background: #fff; color: var(--ink); }
+  .btn .arrow { transition: transform .2s ease; }
+  .btn:hover .arrow { transform: translateX(4px); }
+
+  .hero-photo-wrap { position: relative; }
+  .hero-photo {
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+    border: 1px solid #2a2a2d;
+    transition: transform .8s ease;
+  }
+  .hero-photo:hover { transform: scale(1.02); }
+  .hero-tag {
+    position: absolute;
+    bottom: -18px; left: -18px;
+    background: var(--accent);
+    color: #fff;
+    padding: 14px 18px;
+    font-size: 11px; letter-spacing: .22em; text-transform: uppercase;
+    font-weight: 600;
+  }
+  .hero-rating {
+    position: absolute;
+    top: -18px; right: -18px;
+    background: #fff;
+    color: var(--ink);
+    padding: 14px 18px;
+    text-align: center;
+  }
+  .hero-rating .num { font-family: Georgia, serif; font-size: 26px; line-height: 1; }
+  .hero-rating .stars { color: var(--accent); letter-spacing: 1px; font-size: 12px; margin-top: 4px; }
+  .hero-rating .label-sm { font-size: 9px; letter-spacing: .2em; text-transform: uppercase; color: var(--muted); margin-top: 4px; }
 
   /* Sections */
-  section { padding: 88px 0; border-bottom: 1px solid var(--line); }
+  section { padding: 110px 0; border-bottom: 1px solid var(--line); }
   .section-head {
-    display: grid;
-    grid-template-columns: 1fr 2fr;
-    gap: 48px;
-    margin-bottom: 56px;
+    display: grid; grid-template-columns: 1fr 2fr;
+    gap: 48px; margin-bottom: 64px;
   }
   .section-head h2 {
-    font-family: Georgia, serif;
-    font-weight: 400;
-    font-size: 36px;
+    font-family: "Playfair Display", Georgia, serif;
+    font-weight: 500;
+    font-size: clamp(32px, 4vw, 48px);
     margin: 0;
     letter-spacing: -.01em;
+    line-height: 1.05;
   }
+  .section-head h2 em { font-style: italic; color: var(--accent); }
   .section-head p { margin: 0; color: var(--muted); font-size: 16px; }
   .label {
     font-size: 11px;
-    letter-spacing: .22em;
+    letter-spacing: .26em;
     text-transform: uppercase;
-    color: var(--muted);
+    color: var(--accent);
+    display: inline-flex; align-items: center; gap: 12px;
   }
+  .label::before { content: ""; width: 22px; height: 1px; background: var(--accent); }
 
   /* Services */
   .services {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1px;
-    background: var(--line);
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 1px; background: var(--line);
     border: 1px solid var(--line);
   }
   .service {
     background: var(--paper);
-    padding: 36px 32px;
+    padding: 38px 32px;
+    transition: background .3s ease, color .3s ease, transform .3s ease;
+    cursor: default;
+    position: relative;
   }
+  .service:hover { background: var(--ink); color: #fff; }
+  .service:hover .num,
+  .service:hover p { color: #b0b0b0; }
+  .service:hover .arrow-corner { color: var(--accent); transform: translate(4px, -4px); }
   .service h3 {
-    font-family: Georgia, serif;
-    font-weight: 400;
+    font-family: "Playfair Display", Georgia, serif;
+    font-weight: 500;
     font-size: 22px;
-    margin: 24px 0 12px;
+    margin: 18px 0 12px;
   }
-  .service p { color: var(--muted); margin: 0; font-size: 15px; }
+  .service p { color: var(--muted); margin: 0; font-size: 15px; transition: color .3s ease; }
   .service .num {
-    font-size: 12px;
-    letter-spacing: .2em;
+    font-size: 12px; letter-spacing: .22em; color: var(--muted);
+    transition: color .3s ease;
+  }
+  .arrow-corner {
+    position: absolute; top: 32px; right: 32px;
+    font-size: 14px; color: var(--muted);
+    transition: color .3s ease, transform .3s ease;
+  }
+
+  /* Photo blocks */
+  .feature-photo {
+    width: 100%; aspect-ratio: 21/9;
+    object-fit: cover;
+    border: 1px solid var(--line);
+    display: block;
+  }
+  .photo-caption {
+    font-size: 11px; letter-spacing: .22em; text-transform: uppercase;
+    color: var(--muted); margin-top: 14px;
+  }
+  .photo-block { margin: 64px 0; }
+
+  /* Stats strip */
+  .stats {
+    background: var(--cream);
+    padding: 56px 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .stats-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 32px;
+  }
+  .stat {
+    border-left: 2px solid var(--accent);
+    padding-left: 20px;
+  }
+  .stat .n {
+    font-family: "Playfair Display", Georgia, serif;
+    font-size: 52px; line-height: 1; letter-spacing: -.02em;
+  }
+  .stat .t {
+    margin-top: 8px;
+    font-size: 11px; letter-spacing: .22em; text-transform: uppercase;
     color: var(--muted);
   }
 
   /* Reviews */
-  .stars {
-    display: inline-flex; gap: 4px; align-items: center;
-    font-family: Georgia, serif; font-size: 22px;
-  }
   .rating-row {
-    display: flex; align-items: baseline; gap: 16px;
+    display: flex; align-items: baseline; gap: 18px;
     margin-bottom: 8px;
   }
-  .rating-row .score { font-family: Georgia, serif; font-size: 48px; }
-  .rating-row .count { color: var(--muted); font-size: 14px; letter-spacing: .08em; text-transform: uppercase; }
+  .rating-row .score { font-family: Georgia, serif; font-size: 56px; }
+  .rating-row .stars { color: var(--accent); font-size: 22px; letter-spacing: 2px; }
+  .rating-row .count { color: var(--muted); font-size: 13px; letter-spacing: .12em; text-transform: uppercase; }
 
-  .reviews {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 32px;
-  }
+  .reviews { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; }
   .review {
-    border-top: 1px solid var(--ink);
-    padding-top: 24px;
+    border: 1px solid var(--line);
+    padding: 28px;
+    background: #fff;
+    transition: transform .3s ease, box-shadow .3s ease, border-color .3s ease;
   }
-  .review .who {
-    font-weight: 600;
-    font-size: 14px;
-    letter-spacing: .04em;
-    margin-bottom: 4px;
+  .review:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 18px 40px -22px rgba(0,0,0,.25);
+    border-color: var(--accent);
   }
+  .review .quote-stars { color: var(--accent); letter-spacing: 2px; font-size: 14px; margin-bottom: 14px; }
+  .review .who { font-weight: 700; font-size: 14px; letter-spacing: .04em; margin-bottom: 2px; }
   .review .when {
-    font-size: 12px;
-    color: var(--muted);
-    text-transform: uppercase;
-    letter-spacing: .12em;
-    margin-bottom: 16px;
+    font-size: 11px; color: var(--muted);
+    text-transform: uppercase; letter-spacing: .14em; margin-bottom: 16px;
   }
-  .review p {
-    margin: 0;
-    font-size: 15px;
-    color: var(--ink-2);
-  }
-  .review .quote-stars {
-    font-family: Georgia, serif;
-    font-size: 16px;
-    letter-spacing: 2px;
-    margin-bottom: 12px;
-  }
+  .review p { margin: 0; font-size: 15px; color: var(--ink-2); }
 
-  /* About / Contact split */
-  .split {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 64px;
-    align-items: start;
-  }
+  /* Split (about / contact) */
+  .split { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: start; }
   .split h2 {
-    font-family: Georgia, serif;
-    font-weight: 400;
-    font-size: 36px;
-    margin: 0 0 20px;
+    font-family: "Playfair Display", Georgia, serif;
+    font-weight: 500;
+    font-size: clamp(32px, 4vw, 44px);
+    margin: 16px 0 20px;
+    letter-spacing: -.01em;
   }
+  .split h2 em { font-style: italic; color: var(--accent); }
   .split p { color: var(--ink-2); font-size: 16px; }
-  .meta {
-    list-style: none; padding: 0; margin: 24px 0 0;
-    border-top: 1px solid var(--line);
-  }
+  .meta { list-style: none; padding: 0; margin: 24px 0 0; border-top: 1px solid var(--line); }
   .meta li {
-    display: grid;
-    grid-template-columns: 160px 1fr;
-    gap: 16px;
-    padding: 16px 0;
-    border-bottom: 1px solid var(--line);
-    font-size: 15px;
+    display: grid; grid-template-columns: 160px 1fr; gap: 16px;
+    padding: 16px 0; border-bottom: 1px solid var(--line); font-size: 15px;
   }
   .meta li span:first-child {
-    font-size: 11px;
-    letter-spacing: .22em;
-    text-transform: uppercase;
-    color: var(--muted);
-    padding-top: 4px;
+    font-size: 11px; letter-spacing: .22em; text-transform: uppercase;
+    color: var(--muted); padding-top: 4px;
   }
+  .meta a { color: var(--accent); border-bottom: 1px solid var(--accent); }
+
+  /* CTA */
+  .cta {
+    background: var(--ink);
+    color: #fff;
+    padding: 100px 0;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .cta::before {
+    content: ""; position: absolute; inset: 0;
+    background: radial-gradient(800px 500px at 50% 100%, rgba(212,99,42,.25), transparent 65%);
+    pointer-events: none;
+  }
+  .cta h2 {
+    font-family: "Playfair Display", Georgia, serif;
+    font-weight: 500;
+    font-size: clamp(36px, 5.5vw, 64px);
+    margin: 0 0 24px;
+    letter-spacing: -.015em;
+    position: relative;
+  }
+  .cta p {
+    color: #cfcfcf; font-size: 17px; max-width: 56ch; margin: 0 auto 36px;
+    position: relative;
+  }
+  .cta .actions { position: relative; justify-content: center; }
 
   /* Footer */
   footer {
-    padding: 48px 0;
+    padding: 36px 0;
     color: var(--muted);
     font-size: 13px;
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 12px;
+    display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px;
+    background: #fff;
+    border-top: 1px solid var(--line);
   }
-  footer a { color: var(--muted); border-color: var(--muted); }
+  footer a { color: var(--accent); }
+
+  /* Scroll reveal */
+  .reveal { opacity: 0; transform: translateY(24px); transition: opacity .8s ease, transform .8s ease; }
+  .reveal.in { opacity: 1; transform: none; }
+
+  /* Floating CTA */
+  .float-cta {
+    position: fixed; bottom: 24px; right: 24px; z-index: 60;
+    background: var(--accent); color: #fff;
+    padding: 14px 20px;
+    font-size: 12px; letter-spacing: .18em; text-transform: uppercase; font-weight: 700;
+    box-shadow: 0 14px 40px -10px rgba(212,99,42,.45);
+    transform: translateY(120%);
+    transition: transform .4s ease;
+    display: inline-flex; align-items: center; gap: 10px;
+  }
+  .float-cta.show { transform: none; }
+  .float-cta .pdot {
+    width: 8px; height: 8px; border-radius: 50%; background: #fff;
+    animation: pulse-white 2s infinite;
+  }
+  @keyframes pulse-white {
+    0% { box-shadow: 0 0 0 0 rgba(255,255,255,.7); }
+    70% { box-shadow: 0 0 0 10px rgba(255,255,255,0); }
+    100% { box-shadow: 0 0 0 0 rgba(255,255,255,0); }
+  }
 
   /* Responsive */
-  @media (max-width: 860px) {
-    nav ul { display: none; }
-    .section-head { grid-template-columns: 1fr; gap: 16px; margin-bottom: 40px; }
+  @media (max-width: 960px) {
+    .hero-grid { grid-template-columns: 1fr; gap: 48px; }
     .services { grid-template-columns: 1fr; }
     .reviews { grid-template-columns: 1fr; }
     .split { grid-template-columns: 1fr; gap: 40px; }
+    .stats-grid { grid-template-columns: repeat(2, 1fr); }
+    .section-head { grid-template-columns: 1fr; gap: 16px; margin-bottom: 40px; }
+    section { padding: 72px 0; }
+    .hero { padding: 72px 0 96px; }
+    nav ul { display: none; }
+    .open-pill { display: none; }
     .meta li { grid-template-columns: 1fr; gap: 4px; }
-    section { padding: 64px 0; }
-    .hero { padding: 64px 0; }
   }
 </style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,500&display=swap" rel="stylesheet">
 </head>
 <body>
 
 <header>
   <div class="wrap nav">
-    <a class="brand" href="#top">Best Price Roofing <span>— St. John's</span></a>
+    <a class="brand" href="#top">
+      <span class="dot"></span>
+      Best Price Roofing <span class="faint">— St. John's</span>
+    </a>
     <nav>
       <ul>
         <li><a href="#services">Services</a></li>
@@ -299,70 +462,110 @@
         <li><a href="#contact">Contact</a></li>
       </ul>
     </nav>
+    <span class="open-pill"><span class="pdot"></span> Open 24 hours</span>
   </div>
 </header>
+
+<div class="marquee" aria-hidden="true">
+  <div class="marquee-track">
+    <span>Asphalt Shingle Roofing <em class="sep">✦</em></span>
+    <span>Emergency Repairs <em class="sep">✦</em></span>
+    <span>Single-Day Installs <em class="sep">✦</em></span>
+    <span>Free Detailed Quotes <em class="sep">✦</em></span>
+    <span>Kilbride · St. John's · Avalon <em class="sep">✦</em></span>
+    <span>5.0 ★ on Google <em class="sep">✦</em></span>
+    <span>Asphalt Shingle Roofing <em class="sep">✦</em></span>
+    <span>Emergency Repairs <em class="sep">✦</em></span>
+    <span>Single-Day Installs <em class="sep">✦</em></span>
+    <span>Free Detailed Quotes <em class="sep">✦</em></span>
+    <span>Kilbride · St. John's · Avalon <em class="sep">✦</em></span>
+    <span>5.0 ★ on Google <em class="sep">✦</em></span>
+  </div>
+</div>
 
 <main id="top">
 
   <section class="hero">
     <div class="wrap hero-grid">
       <div>
-        <div class="eyebrow">Roofing Contractor — Newfoundland & Labrador</div>
-        <h1>Honest roofing. Done right. Done on time.</h1>
-        <p class="lede">Family-run roofing in Kilbride and across St. John's. Detailed quotes, clean crews, and shingles installed the way they should be — in a single day, when we say we'll be there.</p>
+        <div class="eyebrow">Roofing Contractor · Newfoundland</div>
+        <h1>Honest roofing.<br/><em>Done right.</em><br/>Done on time.</h1>
+        <p class="lede">Family-run roofing in Kilbride and across St. John's. Detailed quotes, clean crews, and shingles installed the way they should be — in a single day, when we say we'll be there. Rain or shine.</p>
         <div class="actions">
-          <a class="btn" href="#contact">Request a Quote</a>
+          <a class="btn" href="#contact">Request a Quote <span class="arrow">→</span></a>
           <a class="btn ghost" href="#reviews">Read Reviews</a>
         </div>
       </div>
-      <div>
+      <div class="hero-photo-wrap reveal">
         <img class="hero-photo" src="https://d8j0ntlcm91z4.cloudfront.net/user_3EzUgW8S7w38RCZcbjVMlR872dl/hf_20260615_011513_3cb4f8df-d9de-4761-835b-6000054be4e5.png" alt="A typical home in St. John's, Newfoundland after a fresh shingle install — overcast sky, light fog." />
-        <div class="photo-caption">Kilbride · Recent install · Overcast morning</div>
+        <div class="hero-tag">Kilbride · Recent Install</div>
+        <div class="hero-rating">
+          <div class="num">5.0</div>
+          <div class="stars">★ ★ ★ ★ ★</div>
+          <div class="label-sm">18 Reviews</div>
+        </div>
       </div>
     </div>
   </section>
 
+  <div class="stats">
+    <div class="wrap stats-grid">
+      <div class="stat reveal"><div class="n" data-count="5.0">0.0</div><div class="t">Google Rating</div></div>
+      <div class="stat reveal"><div class="n" data-count="18">0</div><div class="t">Five-Star Reviews</div></div>
+      <div class="stat reveal"><div class="n" data-count="1">0</div><div class="t">Day Installs</div></div>
+      <div class="stat reveal"><div class="n">24/7</div><div class="t">Emergency Response</div></div>
+    </div>
+  </div>
+
   <section id="services">
     <div class="wrap">
-      <div class="section-head">
+      <div class="section-head reveal">
         <div class="label">01 — Services</div>
         <div>
-          <h2>What we do, and only what we do well.</h2>
+          <h2>What we do, <em>and only</em> what we do well.</h2>
           <p>Residential roofing across the Avalon. Full tear-offs, new builds, repairs, and emergency leak response — all delivered with the same standard, every job.</p>
         </div>
       </div>
-      <div class="photo-block wide">
+
+      <div class="photo-block reveal">
         <img class="feature-photo" src="https://d8j0ntlcm91z4.cloudfront.net/user_3EzUgW8S7w38RCZcbjVMlR872dl/hf_20260615_011514_8600eeca-e84a-4c62-9dc6-209546212bc0.png" alt="The Best Price Roofing crew working on a roof in St. John's on a damp, overcast day." />
         <div class="photo-caption">On site, 8:00 AM · Light drizzle, low fog over the Avalon</div>
       </div>
-      <div class="services">
+
+      <div class="services reveal">
         <div class="service">
           <div class="num">001</div>
+          <span class="arrow-corner">↗</span>
           <h3>Asphalt Shingle Roofing</h3>
           <p>Full tear-offs and new installs. Shingle samples brought to your door so you can choose with confidence.</p>
         </div>
         <div class="service">
           <div class="num">002</div>
+          <span class="arrow-corner">↗</span>
           <h3>Roof Repairs</h3>
           <p>Leaks, damaged flashing, missing shingles. Fast assessments and honest recommendations — repair when it makes sense, replace when it doesn't.</p>
         </div>
         <div class="service">
           <div class="num">003</div>
+          <span class="arrow-corner">↗</span>
           <h3>Emergency Response</h3>
           <p>Open 24 hours. When water is coming through the ceiling, we show up. Same standard of work, no inflated pricing.</p>
         </div>
         <div class="service">
           <div class="num">004</div>
+          <span class="arrow-corner">↗</span>
           <h3>Detailed Estimates</h3>
           <p>Written quotes that break out materials, options, and labour. No surprises, no upsells, no guesswork.</p>
         </div>
         <div class="service">
           <div class="num">005</div>
+          <span class="arrow-corner">↗</span>
           <h3>Single-Day Installs</h3>
-          <p>Most homes start at 8:00 AM and finish by 6:00 PM the same day. Crew shows up in numbers and the site is left clean.</p>
+          <p>Most homes start at 8:00 AM and finish by 6:00 PM the same day. Crew shows up in numbers, site left clean.</p>
         </div>
         <div class="service">
           <div class="num">006</div>
+          <span class="arrow-corner">↗</span>
           <h3>Workmanship Standards</h3>
           <p>Proper underlayment, correct nailing, clean lines, careful flashing. Done the way it lasts.</p>
         </div>
@@ -372,21 +575,21 @@
 
   <section id="reviews">
     <div class="wrap">
-      <div class="section-head">
+      <div class="section-head reveal">
         <div class="label">02 — Reviews</div>
         <div>
-          <h2>Eighteen reviews. Every one of them five stars.</h2>
+          <h2>Eighteen reviews. <em>Every one</em> five stars.</h2>
           <p>We let the work speak. Below are a few words from homeowners across St. John's who trusted Mike and the crew with their roof.</p>
         </div>
       </div>
 
-      <div class="rating-row">
+      <div class="rating-row reveal">
         <span class="score">5.0</span>
         <span class="stars">★ ★ ★ ★ ★</span>
         <span class="count">18 Google Reviews</span>
       </div>
 
-      <div class="reviews" style="margin-top:48px;">
+      <div class="reviews reveal" style="margin-top:48px;">
         <article class="review">
           <div class="quote-stars">★ ★ ★ ★ ★</div>
           <div class="who">Jordan Barry</div>
@@ -409,9 +612,9 @@
     </div>
   </section>
 
-  <section>
-    <div class="wrap">
-      <div class="photo-block" style="margin:0;">
+  <section style="padding: 0; border-bottom: none;">
+    <div class="wrap" style="padding-top: 0;">
+      <div class="photo-block reveal" style="margin: 0;">
         <img class="feature-photo" src="https://d8j0ntlcm91z4.cloudfront.net/user_3EzUgW8S7w38RCZcbjVMlR872dl/hf_20260615_011515_dce946fc-5a9e-427a-b233-40babc3d4f9d.png" alt="Close-up of newly installed architectural shingles, damp from morning rain." />
         <div class="photo-caption">Architectural shingles · Clean lines, proper nailing</div>
       </div>
@@ -420,14 +623,14 @@
 
   <section id="about">
     <div class="wrap split">
-      <div>
-        <div class="label" style="margin-bottom:20px;">03 — About</div>
-        <h2>Local. Reliable. Fair.</h2>
+      <div class="reveal">
+        <div class="label">03 — About</div>
+        <h2>Local. Reliable. <em>Fair.</em></h2>
         <p>Best Price Roofing is a St. John's roofing contractor built on the simple idea that homeowners deserve a straight quote, a crew that shows up, and a roof installed properly the first time.</p>
         <p>Mike and the team have built a reputation across the Avalon for prompt communication, clean job sites, and shingles that lay flat and last. That's why every review on file is a five.</p>
       </div>
-      <div>
-        <div class="label" style="margin-bottom:20px;">Highlights</div>
+      <div class="reveal">
+        <div class="label">Highlights</div>
         <ul class="meta">
           <li><span>Rating</span><span>5.0 / 5.0 — 18 reviews</span></li>
           <li><span>Hours</span><span>Open 24 hours</span></li>
@@ -439,25 +642,20 @@
     </div>
   </section>
 
-  <section id="contact">
-    <div class="wrap split">
-      <div>
-        <div class="label" style="margin-bottom:20px;">04 — Contact</div>
-        <h2>Get a quote.</h2>
-        <p>Tell us about your roof. We'll come by, take measurements, walk you through your shingle options, and leave a written quote — no pressure, no obligation.</p>
-        <div class="actions" style="margin-top:24px;">
-          <a class="btn" href="#contact">Request a Quote</a>
-        </div>
+  <section class="cta" id="contact">
+    <div class="wrap">
+      <div class="label" style="justify-content:center; color: var(--accent); display:inline-flex; margin-bottom: 24px;">04 — Get In Touch</div>
+      <h2>Let's talk about <em>your roof.</em></h2>
+      <p>Tell us about your roof. We'll come by, take measurements, walk you through your shingle options, and leave a written quote — no pressure, no obligation.</p>
+      <div class="actions">
+        <a class="btn" href="#contact">Request a Quote <span class="arrow">→</span></a>
+        <a class="btn ghost" href="#about">Learn More</a>
       </div>
-      <div>
-        <div class="label" style="margin-bottom:20px;">Find Us</div>
-        <ul class="meta">
-          <li><span>Address</span><span>Kilbride, NL A1G 1B9</span></li>
-          <li><span>Plus Code</span><span>F6WM+GJ St. John's, NL</span></li>
-          <li><span>Hours</span><span>24 / 7</span></li>
-          <li><span>Google</span><span><a href="#">View profile & reviews</a></span></li>
-        </ul>
-      </div>
+      <ul class="meta" style="max-width: 640px; margin: 56px auto 0; text-align: left; border-top-color:#2a2a2d;">
+        <li style="border-bottom-color:#2a2a2d; color:#cfcfcf;"><span style="color:var(--accent);">Address</span><span>Kilbride, NL A1G 1B9</span></li>
+        <li style="border-bottom-color:#2a2a2d; color:#cfcfcf;"><span style="color:var(--accent);">Plus Code</span><span>F6WM+GJ St. John's, NL</span></li>
+        <li style="border-bottom-color:#2a2a2d; color:#cfcfcf;"><span style="color:var(--accent);">Hours</span><span>24 / 7</span></li>
+      </ul>
     </div>
   </section>
 
@@ -468,7 +666,52 @@
   <div>Roofing Contractor · St. John's, Newfoundland and Labrador</div>
 </footer>
 
-<script>document.getElementById('y').textContent = new Date().getFullYear();</script>
+<a class="float-cta" href="#contact"><span class="pdot"></span> Get a Free Quote →</a>
+
+<script>
+  document.getElementById('y').textContent = new Date().getFullYear();
+
+  // Scroll reveal
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('in');
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.15 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+  // Count-up stats
+  const countIO = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (!e.isIntersecting) return;
+      const el = e.target;
+      const target = parseFloat(el.dataset.count);
+      const isFloat = target % 1 !== 0;
+      const dur = 1400;
+      const start = performance.now();
+      function tick(t) {
+        const p = Math.min(1, (t - start) / dur);
+        const eased = 1 - Math.pow(1 - p, 3);
+        const v = target * eased;
+        el.textContent = isFloat ? v.toFixed(1) : Math.floor(v).toString();
+        if (p < 1) requestAnimationFrame(tick);
+        else el.textContent = isFloat ? target.toFixed(1) : target.toString();
+      }
+      requestAnimationFrame(tick);
+      countIO.unobserve(el);
+    });
+  }, { threshold: 0.4 });
+  document.querySelectorAll('[data-count]').forEach(el => countIO.observe(el));
+
+  // Floating CTA after scroll past hero
+  const floatCta = document.querySelector('.float-cta');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 700) floatCta.classList.add('show');
+    else floatCta.classList.remove('show');
+  }, { passive: true });
+</script>
 
 </body>
 </html>
